@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta name="robots" content="noindex, nofollow"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Programme LinkedIn Live Data — test sur 3 voix</title>
+<style>
+@font-face{font-family:Montserrat;src:url(assets/fonts/Montserrat-VF.ttf);font-weight:100 900;font-display:swap}
+@font-face{font-family:Poppins;src:url(assets/fonts/Poppins-Regular.ttf);font-weight:400;font-display:swap}
+@font-face{font-family:Poppins;src:url(assets/fonts/Poppins-Medium.ttf);font-weight:500;font-display:swap}
+@font-face{font-family:Poppins;src:url(assets/fonts/Poppins-SemiBold.ttf);font-weight:600;font-display:swap}
+@font-face{font-family:Poppins;src:url(assets/fonts/Poppins-Bold.ttf);font-weight:700;font-display:swap}
+
+:root{--navy:#0F172A;--cyan:#0EA5E9;--grey:#F1F5F9;--text:#475569;--line:#E2E8F0}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--grey);color:var(--navy);font:400 15px/1.5 Poppins,system-ui,sans-serif}
+a{color:var(--cyan)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header.top{background:var(--navy);color:#fff;padding:36px 0 0}
+.brand{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand img{height:44px}
+h1{font:800 34px/1.15 Montserrat;margin:18px 0 12px;letter-spacing:-.01em}
+.intro{margin:0;max-width:980px;color:#E2E8F0;font-size:15px}
+.intro p{margin:0 0 4px}
+nav.tabs{display:flex;gap:6px;margin-top:28px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{display:flex;align-items:center;gap:12px;background:transparent;border:0;border-bottom:4px solid transparent;color:#CBD5E1;padding:12px 16px 14px;cursor:pointer;font:500 15px/1.25 Poppins;text-align:left;flex:none}
+.tab img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none;border:2px solid transparent}
+.tab b{display:block;font:700 15px Montserrat;color:#fff}
+.tab b i{font-style:normal}
+.tab span{font-size:13px}
+.tab[aria-selected=true]{border-bottom-color:var(--cyan);color:#fff}
+.tab[aria-selected=true] img{border-color:var(--cyan)}
+.tab:focus-visible{outline:2px solid var(--cyan);outline-offset:-2px}
+main{padding:28px 0 20px}
+.panel[hidden]{display:none}
+.feed{display:flex;flex-direction:column;align-items:center;gap:36px}
+.item{width:100%;max-width:555px}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.ch{display:flex;gap:10px;padding:14px 16px 6px;align-items:flex-start}
+.ch img{width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none}
+.who b{font:600 15px/1.3 Poppins;display:block}
+.who .hl{font-size:12.5px;color:var(--text);line-height:1.35;display:block}
+.who .dt{font-size:12.5px;color:var(--text);display:block}
+.who .dt em{font-style:normal;color:var(--cyan);font-weight:600}
+.pid{margin-left:auto;font:700 12px Montserrat;color:var(--text);background:var(--grey);border-radius:6px;padding:3px 8px;flex:none}
+.txt{position:relative;padding:4px 16px 10px;font-size:14px;line-height:1.43;white-space:pre-wrap;word-wrap:break-word}
+.txt .body{display:block}
+.txt.clamp .body{max-height:calc(1.43em * 3);overflow:hidden;cursor:pointer}
+.more{position:absolute;right:16px;bottom:10px;background:#fff;border:0;padding:0 0 0 6px;font:500 14px/1.43 Poppins;color:var(--text);cursor:pointer}
+.more:hover{color:var(--cyan);text-decoration:underline}
+.txt:not(.clamp) .more{display:none}
+.media{position:relative;background:var(--grey);aspect-ratio:4/5;width:100%;overflow:hidden}
+.media img,.media video{display:block;width:100%;height:100%;object-fit:cover}
+.media .missing{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--text);font-size:14px}
+.media.err .missing{display:flex}
+.track{display:flex;height:100%;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.track img{flex:0 0 100%}
+.arr{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:0;background:rgba(15,23,42,.78);color:#fff;font:600 20px/40px Poppins;cursor:pointer;padding:0}
+.arr.l{left:10px}.arr.r{right:10px}
+.arr[disabled]{display:none}
+.count{position:absolute;top:10px;right:10px;background:rgba(15,23,42,.78);color:#fff;font:500 12px Poppins;border-radius:999px;padding:3px 10px}
+.bar{display:flex;justify-content:space-around;border-top:1px solid var(--line);margin:0 12px;padding:6px 0;color:var(--text);font:600 13px Poppins}
+.bar span{padding:8px 6px}
+.note{margin-top:10px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--cyan);border-radius:8px;padding:14px 16px;font-size:13.5px;color:var(--text)}
+.note dl{margin:0}
+.note dt{font:700 12px Montserrat;text-transform:uppercase;letter-spacing:.06em;color:var(--navy);margin-top:10px}
+.note dt:first-child{margin-top:0}
+.note dd{margin:2px 0 0}
+.note dd.res{color:var(--navy);font-weight:600}
+.note dd.val{color:var(--navy)}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 16px;border-radius:999px;font:600 13.5px Poppins;cursor:pointer;text-decoration:none;border:1.5px solid var(--navy);background:#fff;color:var(--navy)}
+.btn.pri{background:var(--navy);color:#fff}
+.btn:hover{border-color:var(--cyan)}
+.btn.ok{background:var(--cyan);border-color:var(--cyan);color:#fff}
+section.extra{padding:20px 0 48px}
+h2{font:800 24px/1.2 Montserrat;margin:0 0 6px}
+.lead{color:var(--text);margin:0 0 18px;font-size:14.5px}
+.blk{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px;margin-top:28px}
+.flow{display:grid;gap:12px}
+.fr{display:grid;grid-template-columns:minmax(0,1fr) 36px minmax(0,1.6fr);align-items:stretch;gap:0}
+.sig,.act{border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.4}
+.sig{background:var(--grey);font-weight:600}
+.sig small{display:block;font-weight:400;color:var(--text);font-size:12.5px;margin-top:2px}
+.act{background:var(--navy);color:#fff}
+.act b{color:var(--cyan);font-weight:600}
+.fr.none .act{background:#fff;border:1.5px dashed #CBD5E1;color:var(--text)}
+.ar{position:relative}
+.ar:before{content:"";position:absolute;left:6px;right:10px;top:50%;height:2px;background:var(--cyan)}
+.ar:after{content:"";position:absolute;right:4px;top:calc(50% - 6px);border:6px solid transparent;border-left:8px solid var(--cyan);border-right:0}
+.cal{width:100%;border-collapse:separate;border-spacing:0 8px;table-layout:fixed}
+.cal thead th{font:700 13px Montserrat;text-align:left;padding:0 8px 2px;color:var(--navy)}
+.cal thead th img{width:26px;height:26px;border-radius:50%;vertical-align:middle;margin-right:6px}
+.cal th[scope=row]{width:110px;text-align:left;padding:10px 8px;background:var(--navy);color:#fff;border-radius:8px 0 0 8px;vertical-align:top}
+.cal .wk{display:block;font:800 18px Montserrat}
+.cal .sp{display:block;font-size:12px;color:#CBD5E1}
+.cal td{background:var(--grey);padding:0;vertical-align:top}
+.cal td:last-child{border-radius:0 8px 8px 0}
+.calpost{display:block;width:100%;height:100%;text-align:left;background:none;border:0;padding:10px;cursor:pointer;font:400 13px/1.35 Poppins;color:var(--navy)}
+.calpost:hover{background:#E2E8F0}
+.calpost .cd{display:block;color:var(--text);font-size:12px;margin-bottom:2px}
+.calpost b{font-family:Montserrat;color:var(--cyan)}
+footer{color:var(--text);font-size:12.5px;text-align:center;padding:0 0 32px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+@media (max-width:640px){
+ .wrap{padding:0 12px}
+ header.top{padding-top:22px}
+ .brand img{height:34px}
+ h1{font-size:24px}
+ .intro{font-size:13.5px}
+ nav.tabs{gap:0}
+ .tab{flex:1 1 0;min-width:0;padding:10px 4px 12px;gap:6px;justify-content:center}
+ .tab .ln{display:none}
+ .tab img{width:36px;height:36px}
+ .tab .tt>span{display:none}
+ .tab b{font-size:13px}
+ main{padding-top:16px}
+ .feed{gap:28px}
+ .card{border-radius:0;border-left:0;border-right:0}
+ .item{margin:0 -12px;width:calc(100% + 24px)}
+ .note{margin:10px 12px 0}
+ .blk{padding:16px}
+ .fr{grid-template-columns:1fr;gap:0}
+ .ar{height:22px}
+ .ar:before{left:18px;right:auto;top:2px;bottom:6px;width:2px;height:auto}
+ .ar:after{left:12px;right:auto;top:auto;bottom:0;border:6px solid transparent;border-top:8px solid var(--cyan);border-bottom:0}
+ .cal,.cal tbody,.cal tr,.cal th,.cal td{display:block;width:100%}
+ .cal thead{display:none}
+ .cal tr{margin-bottom:12px}
+ .cal th[scope=row]{border-radius:8px 8px 0 0;display:flex;gap:10px;align-items:baseline;width:100%}
+ .cal td{border-bottom:1px solid #fff}
+ .cal td:last-child{border-radius:0 0 8px 8px}
+ .calpost:before{content:attr(data-who);display:block;font:700 11px Montserrat;color:var(--text);text-transform:uppercase;letter-spacing:.05em}
+}
+</style></head>
+<body>
+<header class="top"><div class="wrap">
+ <div class="brand"><img src="assets/logo_lds_white.png" alt="Live Data Solutions"></div>
+ <h1>Programme LinkedIn Live Data — test sur 3 voix</h1>
+ <div class="intro">
+  <p>Cinq posts par personne, dans l'ordre de publication, tels qu'ils apparaîtront dans le fil LinkedIn.</p>
+  <p>Sous chaque post : pourquoi ce post, la source du 1er commentaire, la ressource proposée, et de quoi copier le texte et le visuel.</p>
+  <p>En bas de page : quoi faire de chaque réaction, et le calendrier du 2 novembre au 3 décembre.</p>
+ </div>
+ <nav class="tabs" role="tablist" aria-label="Voix"><button class="tab" role="tab" id="tab-J" aria-controls="panel-J" aria-selected="true" data-k="J"><img src="assets/joanna.jpg" alt=""><span class="tt"><b>Joanna<i class="ln"> Hede</i></b><span>CEO</span></span></button><button class="tab" role="tab" id="tab-S" aria-controls="panel-S" aria-selected="false" data-k="S"><img src="assets/simon.jpg" alt=""><span class="tt"><b>Simon<i class="ln"> Vagnier</i></b><span>Directeur Business Unit</span></span></button><button class="tab" role="tab" id="tab-F" aria-controls="panel-F" aria-selected="false" data-k="F"><img src="assets/fanny.jpg" alt=""><span class="tt"><b>Fanny<i class="ln"> Carrière</i></b><span>Directrice de clientèle eCRM</span></span></button></nav>
+</div></header>
+<main class="wrap"><section class="panel" role="tabpanel" id="panel-J" aria-labelledby="tab-J"><div class="feed"></div></section><section class="panel" role="tabpanel" id="panel-S" aria-labelledby="tab-S" hidden><div class="feed"></div></section><section class="panel" role="tabpanel" id="panel-F" aria-labelledby="tab-F" hidden><div class="feed"></div></section></main>
+<section class="extra"><div class="wrap">
+ <div class="blk" id="like-rdv">
+  <h2>Du like au RDV</h2>
+  <p class="lead">Ce qu'on fait de chaque réaction. Une réaction n'est pas un accord : on ne pousse rien sans intérêt exprimé.</p>
+  <div class="flow"><div class="fr"><div class="sig">Commentaire avec une question</div><div class="ar" aria-hidden="true"></div><div class="act"><b>Message sous 48 h</b>, puis proposition de <b>RDV</b>.</div></div><div class="fr"><div class="sig">Demande de la ressource<small>grille, comptage gratuit…</small></div><div class="ar" aria-hidden="true"></div><div class="act"><b>Envoi de la ressource</b>, puis proposition d'un échange.</div></div><div class="fr"><div class="sig">Like d'une personne ciblée</div><div class="ar" aria-hidden="true"></div><div class="act"><b>Invitation sans note.</b> Un message seulement après un intérêt exprimé.</div></div><div class="fr none"><div class="sig">Réaction hors cible</div><div class="ar" aria-hidden="true"></div><div class="act">Rien.</div></div></div>
+ </div>
+ <div class="blk" id="calendrier">
+  <h2>Calendrier S45 à S49</h2>
+  <p class="lead">Trois posts par semaine, un par voix. Cliquez sur un post pour l'ouvrir.</p>
+  <table class="cal"><thead><tr><th></th><th><img src="assets/joanna.jpg" alt="">Joanna</th><th><img src="assets/simon.jpg" alt="">Simon</th><th><img src="assets/fanny.jpg" alt="">Fanny</th></tr></thead><tbody><tr><th scope="row"><span class="wk">S45</span><span class="sp">2 → 6 nov.</span></th><td><button class="calpost" data-who="Joanna" data-goto="J1"><span class="cd">lundi 2 novembre</span><span class="ct"><b>J1</b> · Lancement du programme</span></button></td><td><button class="calpost" data-who="Simon" data-goto="S1"><span class="cd">jeudi 5 novembre</span><span class="ct"><b>S1</b> · Actu : la fin d&#x27;année se joue en magasin</span></button></td><td><button class="calpost" data-who="Fanny" data-goto="F1"><span class="cd">mercredi 4 novembre</span><span class="ct"><b>F1</b> · Actu : votre taux d&#x27;ouverture ne dit plus tout</span></button></td></tr><tr><th scope="row"><span class="wk">S46</span><span class="sp">9 → 13 nov.</span></th><td><button class="calpost" data-who="Joanna" data-goto="J2"><span class="cd">mardi 10 novembre</span><span class="ct"><b>J2</b> · Une base de données vieillit</span></button></td><td><button class="calpost" data-who="Simon" data-goto="S2"><span class="cd">jeudi 12 novembre</span><span class="ct"><b>S2</b> · « Vous vendez de la data ? Non. »</span></button></td><td><button class="calpost" data-who="Fanny" data-goto="F2"><span class="cd">jeudi 12 novembre</span><span class="ct"><b>F2</b> · Un intentionniste a une date de péremption</span></button></td></tr><tr><th scope="row"><span class="wk">S47</span><span class="sp">16 → 20 nov.</span></th><td><button class="calpost" data-who="Joanna" data-goto="J3"><span class="cd">mardi 17 novembre</span><span class="ct"><b>J3</b> · Actu : l&#x27;IA ne répare pas une base sale</span></button></td><td><button class="calpost" data-who="Simon" data-goto="S3"><span class="cd">jeudi 19 novembre</span><span class="ct"><b>S3</b> · Les 3 règles d&#x27;un partenariat avec une agence</span></button></td><td><button class="calpost" data-who="Fanny" data-goto="F3"><span class="cd">mercredi 18 novembre</span><span class="ct"><b>F3</b> · Les 3 familles de signaux d&#x27;intention</span></button></td></tr><tr><th scope="row"><span class="wk">S48</span><span class="sp">23 → 27 nov.</span></th><td><button class="calpost" data-who="Joanna" data-goto="J4"><span class="cd">mardi 24 novembre</span><span class="ct"><b>J4</b> · Le consentement est un actif</span></button></td><td><button class="calpost" data-who="Simon" data-goto="S4"><span class="cd">jeudi 26 novembre</span><span class="ct"><b>S4</b> · Instant Mail® : ×2</span></button></td><td><button class="calpost" data-who="Fanny" data-goto="F4"><span class="cd">mercredi 25 novembre</span><span class="ct"><b>F4</b> · Le comptage en entonnoir</span></button></td></tr><tr><th scope="row"><span class="wk">S49</span><span class="sp">30 nov. → 4 déc.</span></th><td><button class="calpost" data-who="Joanna" data-goto="J5"><span class="cd">mardi 1er décembre</span><span class="ct"><b>J5</b> · 5 questions à poser à un fournisseur de données</span></button></td><td><button class="calpost" data-who="Simon" data-goto="S5"><span class="cd">jeudi 3 décembre</span><span class="ct"><b>S5</b> · Actu : le RCS est prêt, les marques pas encore</span></button></td><td><button class="calpost" data-who="Fanny" data-goto="F5"><span class="cd">mercredi 2 décembre</span><span class="ct"><b>F5</b> · Les exclusions : sans elles, le bilan ment</span></button></td></tr></tbody></table>
+ </div>
+</div></section>
+<footer>Document de travail interne Live Data Solutions — rien n'est publié.</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="application/json" id="data">{"people": [{"key": "J", "name": "Joanna Hede", "role": "CEO", "photo": "assets/joanna.jpg", "headline": "CEO · Live Data Solutions", "posts": [{"id": "J1", "date": "lundi 2 novembre", "title": "Lancement du programme", "format": "visuel fixe « 6 voix, 6 expertises » (à remplacer idéalement par une vraie photo d'équipe).", "pourquoi": "la CEO ouvre le programme. Son réseau est le plus large de l'équipe : elle donne de la visibilité aux cinq autres dès le premier jour.", "source": "aucune.", "ressource": "aucune (post de lancement).", "valider": "", "text": "On a longtemps laissé nos clients parler pour nous.\n\nDouze ans de data marketing, environ 150 grands comptes accompagnés. Et très peu de prises de parole.\n\nÀ partir de cette semaine, six personnes de l'équipe vont partager ce qu'elles voient sur le terrain :\n\nPierre, sur le marketing local des enseignes.\nMyriam, sur le CRM et les clients qui ne répondent plus.\nSimon, sur le drive-to-store et l'activation de la data.\nFanny, sur les ciblages fins et les intentionnistes.\nFlorence, sur la banque, l'assurance et la protection des données.\n\nPas de discours corporate. Des cas concrets, des chiffres sourcés et des avis qu'on assume.\n\nSi un sujet vous manque, dites-le-moi en commentaire.", "media": {"type": "image", "src": "visuels/J1.png?v=3"}, "download": "visuels/J1.png?v=3"}, {"id": "J2", "date": "mardi 10 novembre", "title": "Une base de données vieillit", "format": "animation 12 s — une base de contacts représentée par une grille de points cyan ; au fil des mois (janvier → décembre), des points s'éteignent un à un (« a déménagé », « a changé d'email », « a retiré son accord »). Final : « 5,9 millions de personnes ont déménagé en 2023 » puis « Une base qu'on n'entretient pas perd de la valeur chaque mois. »", "pourquoi": "sujet stratégique et universel — la valeur d'une base dépend de son entretien, pas de sa taille.", "source": "Insee Première n° 2073, septembre 2025 — insee.fr/fr/statistiques/8648157", "ressource": "aucune.", "valider": "", "text": "Une base de données, ça vieillit. Même quand on n'y touche pas.\n\n5,9 millions de personnes ont déménagé en France en 2023. Presque un habitant sur dix, en une seule année.\n\nAjoutez les emails abandonnés, les numéros changés, les accords retirés. Une base qui n'est pas entretenue perd de la valeur tous les mois, sans que rien ne le signale dans un tableau de bord.\n\nC'est pour ça que je me méfie des bases présentées par leur seule taille. La bonne question n'est pas « combien de contacts ? », mais « combien de contacts vérifiés, et quand ? ».\n\nÀ quand remonte le dernier vrai nettoyage de votre base ?", "media": {"type": "video", "src": "anim/J2.mp4?v=3", "poster": "anim/J2.png?v=3"}, "download": "anim/J2.mp4?v=3"}, {"id": "J3", "date": "mardi 17 novembre", "title": "Actu : l'IA ne répare pas une base sale", "format": "schéma fixe — « base sale → IA → décisions fausses, plus vite ».", "pourquoi": "sujet stratégique du moment chez tous les directeurs marketing ; on le ramène à notre métier, la qualité de la donnée.", "source": "sondage OpinionWay pour Shopfully, 1 020 personnes, 18–21/09/2026 — shopfully.com/fr/newsroom/achats-de-fin-annee-2026/", "ressource": "aucune.", "valider": "", "text": "30 % des Français qui préparent leurs achats de Noël envisagent d'utiliser l'IA pour s'y aider. 47 % chez les moins de 35 ans.\n\nLes consommateurs s'y mettent. Les marques aussi : scoring, personnalisation, prédiction.\n\nMais l'IA ne répare pas une base de données sale. Un modèle qui apprend sur des emails périmés, des doublons et des consentements introuvables produit des décisions fausses. Plus vite, et avec plus d'assurance.\n\nAvant d'acheter un outil d'IA, je poserais trois questions :\n– Quelle part de ma base est réellement joignable ?\n– Pour quels canaux ai-je la preuve du consentement ?\n– Quand ces données ont-elles été vérifiées pour la dernière fois ?\n\nSi vous n'avez pas les réponses, votre premier projet d'IA, c'est celui-là.", "media": {"type": "image", "src": "visuels/J3.png?v=3"}, "download": "visuels/J3.png?v=3"}, {"id": "J4", "date": "mardi 24 novembre", "title": "Le consentement est un actif", "format": "carte citation fixe — « Le consentement n'est pas une case à cocher. C'est le premier contact avec votre marque. »", "pourquoi": "position stratégique qui transforme notre contrainte (opt-in) en avantage concurrentiel.", "source": "aucune.", "ressource": "aucune.", "valider": "les deux phrases à la première personne.", "text": "Le consentement n'est pas une case à cocher. C'est le premier contact avec votre marque.\n\nEn douze ans, j'ai vu le sujet passer du service juridique au cœur du marketing.\n\nUne personne qui sait pourquoi elle reçoit un message, et qui peut se désinscrire en un clic, lit plus volontiers le suivant. Une base construite comme ça vaut plus qu'une base deux fois plus grosse.\n\nChez Live Data, chaque contact est opt-in, horodaté et traçable source par source. Ça nous a coûté du volume au départ. Aujourd'hui, c'est la première chose que nos clients nous demandent.\n\nDans votre entreprise, le consentement est-il piloté par le marketing ou par le juridique ?", "media": {"type": "image", "src": "visuels/J4.png?v=3"}, "download": "visuels/J4.png?v=3"}, {"id": "J5", "date": "mardi 1er décembre", "title": "5 questions à poser à un fournisseur de données", "format": "carrousel PDF 7 pages (couverture, 5 questions, page finale).", "pourquoi": "format le plus enregistré sur LinkedIn ; nos standards deviennent les critères de choix de l'acheteur.", "source": "aucune.", "ressource": "la grille en PDF, envoyée à ceux qui la demandent.", "valider": "", "text": "Cinq questions à poser à n'importe quel fournisseur de données. Nous compris.\n\n1. D'où viennent vos contacts, source par source ?\n2. Pouvez-vous me montrer la preuve du consentement d'un contact pris au hasard ?\n3. Combien de fois par mois un même contact est-il sollicité ?\n4. Où sont hébergées les données ?\n5. Comment mesurez-vous ce que la campagne a réellement rapporté ?\n\nSi l'une des réponses est floue, c'est un signal.\n\nIl manque une question à cette liste ?", "media": {"type": "carousel", "pages": ["carrousels/pages/J5-01.png?v=3", "carrousels/pages/J5-02.png?v=3", "carrousels/pages/J5-03.png?v=3", "carrousels/pages/J5-04.png?v=3", "carrousels/pages/J5-05.png?v=3", "carrousels/pages/J5-06.png?v=3", "carrousels/pages/J5-07.png?v=3"]}, "download": "carrousels/J5.pdf?v=3"}]}, {"key": "S", "name": "Simon Vagnier", "role": "Directeur Business Unit", "photo": "assets/simon.jpg", "headline": "Directeur Business Unit · Live Data Solutions", "posts": [{"id": "S1", "date": "jeudi 5 novembre", "title": "Actu : la fin d'année se joue en magasin", "format": "visuel fixe — grand chiffre « 8 sur 10 » + mini-carte de trois zones de magasin.", "pourquoi": "actu forte à trois semaines du Black Friday, qui amène directement le drive-to-store piloté magasin par magasin.", "source": "sondage OpinionWay pour Shopfully, 1 020 personnes, 18–21/09/2026 — shopfully.com/fr/newsroom/achats-de-fin-annee-2026/ — intentions déclarées, revérifier la veille.", "ressource": "comptage gratuit de la zone d'un magasin.", "valider": "", "text": "Plus de 8 Français sur 10 passeront par un magasin pour leurs achats de fêtes.\n\n27 % se disent « chasseurs de bonnes affaires » : pour eux, Noël commence au Black Friday. Et 22 % disent avoir commencé dès octobre.\n\nPour une enseigne, ça veut dire une chose : la campagne locale de fin d'année ne se lance pas le 20 novembre. Elle se lance maintenant, auprès des gens qui préparent déjà leur liste.\n\nCe que je recommande : une zone par magasin, un message par zone, un bilan par magasin. Pas une campagne nationale déclinée 300 fois.\n\nVotre réseau pilote la fin d'année magasin par magasin, ou en national ?", "media": {"type": "image", "src": "visuels/S1.png?v=3"}, "download": "visuels/S1.png?v=3"}, {"id": "S2", "date": "jeudi 12 novembre", "title": "« Vous vendez de la data ? Non. »", "format": "schéma fixe en 3 étapes — Qui contacter → Quand et sur quel canal → Ce que ça a rapporté.", "pourquoi": "poser notre positionnement d'opérateur data, pas de fichier ; c'est la question que se posent les prospects avant le premier RDV.", "source": "aucune.", "ressource": "aucune.", "valider": "", "text": "« Vous vendez de la data, c'est ça ? »\n\nNon. Et je fais la différence à chaque premier rendez-vous.\n\nUn directeur marketing ne m'appelle pas parce qu'il veut des données. Il m'appelle parce qu'un magasin ouvre, parce que sa base ne répond plus ou parce que son coût d'acquisition explose.\n\nLes données ne sont que la matière première. Le métier, c'est de choisir qui contacter, sur quel canal, à quel moment. Et de prouver ensuite ce que ça a rapporté.\n\nC'est pour ça qu'on se présente comme opérateur data. Pas comme fichier.", "media": {"type": "image", "src": "visuels/S2.png?v=3"}, "download": "visuels/S2.png?v=3"}, {"id": "S3", "date": "jeudi 19 novembre", "title": "Les 3 règles d'un partenariat avec une agence", "format": "carrousel PDF 5 pages.", "pourquoi": "les agences sont nos prescripteurs ; ce post lève leur principale crainte (perdre la relation client).", "source": "aucune.", "ressource": "aucune.", "valider": "", "text": "Une agence ne devrait jamais avoir peur de présenter un partenaire data à son client.\n\nQuand on travaille avec une agence, on pose trois règles dès le premier jour :\n– l'agence garde la relation client ;\n– on peut opérer en marque blanche, le client ne voit qu'elle ;\n– on s'engage par contrat à ne pas solliciter ses clients.\n\nSans ces règles, la meilleure campagne du monde crée de la méfiance. Avec elles, l'agence ajoute une brique à sa recommandation sans rien risquer.\n\nAgences : qu'est-ce qui vous retient de travailler avec un opérateur data ?", "media": {"type": "carousel", "pages": ["carrousels/pages/S3-01.png?v=3", "carrousels/pages/S3-02.png?v=3", "carrousels/pages/S3-03.png?v=3", "carrousels/pages/S3-04.png?v=3", "carrousels/pages/S3-05.png?v=3"]}, "download": "carrousels/S3.pdf?v=3"}, {"id": "S4", "date": "jeudi 26 novembre (veille du Black Friday)", "title": "Instant Mail® : ×2", "format": "animation 12 s — deux boîtes mail côte à côte : envoi à heure fixe, noyé dans la pile ; Instant Mail®, arrivé au moment où la personne se connecte, en haut. Puis « ×2 sur le taux d'ouverture ».", "pourquoi": "notre meilleure preuve produit, publiée au moment exact où les boîtes mail débordent.", "source": "chiffres internes Live Data Solutions 2026, mesurés par rapport à un routage à heure fixe.", "ressource": "aucune.", "valider": "", "text": "Même email. Même cible. Deux fois plus d'ouvertures.\n\nLa seule différence, c'est le moment de l'envoi.\n\nUne campagne classique part à heure fixe : mardi 10 h, pour tout le monde. Instant Mail® envoie l'email au moment où la personne est connectée.\n\nRésultat mesuré sur nos campagnes : un taux d'ouverture multiplié par deux par rapport à un envoi à heure fixe.\n\nDemain, c'est le Black Friday. Les boîtes mail vont déborder. Arriver au bon moment vaudra plus qu'un bon objet.", "media": {"type": "video", "src": "anim/S4.mp4?v=3", "poster": "anim/S4.png?v=3"}, "download": "anim/S4.mp4?v=3"}, {"id": "S5", "date": "jeudi 3 décembre", "title": "Actu : le RCS est prêt, les marques pas encore", "format": "visuel fixe — deux grands chiffres face à face : « 84 % des smartphones compatibles RCS » et « 1,3 % des messages professionnels envoyés en RCS », avec un téléphone stylisé montrant un message RCS (image, bouton, carrousel) à côté d'un SMS texte.", "pourquoi": "innovation sur un canal d'activation que Simon maîtrise ; un écart frappant qui pousse les marques à tester.", "source": "baromètre af2m du marketing SMS, données 2025 — af2m.org/barometre-du-marketing-sms-2025/ ; part de 1,3 % calculée par Link Mobility à partir des volumes af2m — linkmobility.com/fr/blog/statistiques-rcs. Revérifier la veille.", "ressource": "aucune.", "valider": "", "text": "84 % des smartphones français peuvent recevoir du RCS.\nLe RCS ne pèse pourtant qu'environ 1,3 % des messages professionnels envoyés.\n\nLe canal est prêt. La plupart des marques, pas encore.\n\nLe RCS, c'est un SMS avec des images, des boutons et des carrousels. Pour une offre en magasin, on peut montrer le produit, l'adresse et l'itinéraire dans le même message.\n\nCe que je conseille : tester sur une partie de la cible SMS, avec la même offre, et comparer les résultats. Avant que tout le monde s'y mette.\n\nVous avez déjà testé le RCS ?", "media": {"type": "image", "src": "visuels/S5.png?v=3"}, "download": "visuels/S5.png?v=3"}]}, {"key": "F", "name": "Fanny Carrière", "role": "Directrice de clientèle eCRM", "photo": "assets/fanny.jpg", "headline": "Directrice de clientèle eCRM · Live Data Solutions", "posts": [{"id": "F1", "date": "mercredi 4 novembre", "title": "Actu : votre taux d'ouverture ne dit plus tout", "format": "schéma fixe — deux barres : « ouvertures mesurées » et « personnes qui ont réellement lu », l'écart marqué « ce que le pixel ne voit plus ». Sans chiffres inventés.", "pourquoi": "actu CNIL qui concerne toutes les équipes CRM ; Fanny y montre son réflexe d'analyste : regarder les bons indicateurs.", "source": "cnil.fr/fr/recommandation-pixel-suivi-courriels — ne pas présenter la recommandation comme une interdiction générale.", "ressource": "aucune.", "valider": "", "text": "Votre taux d'ouverture va peut-être baisser. Et ce ne sera pas la faute de votre objet.\n\nLa CNIL a publié une recommandation sur les pixels de suivi dans les emails. Selon leur usage, ces pixels peuvent nécessiter un consentement spécifique.\n\nMoins de consentements, c'est moins d'ouvertures mesurées. Pas forcément moins de lecteurs.\n\nQuand j'analyse une campagne, je regarde déjà d'autres signaux : les clics, les réponses, les achats, les désinscriptions. Ils racontent une histoire plus fiable.\n\nVous avez déjà revu vos indicateurs avec votre DPO ?", "media": {"type": "image", "src": "visuels/F1.png?v=3"}, "download": "visuels/F1.png?v=3"}, {"id": "F2", "date": "jeudi 12 novembre", "title": "Un intentionniste a une date de péremption", "format": "animation 12 s — une frise : le signal d'intention s'allume (« recherche une assurance habitation »), une fenêtre se colore, le message arrive dedans ; une seconde version arrive trois semaines plus tard, la fenêtre est fermée.", "pourquoi": "le ciblage intentionniste est la spécialité de Fanny ; elle explique ce qui fait sa valeur, la fraîcheur du signal.", "source": "aucune.", "ressource": "comptage d'intentionnistes sur la catégorie du prospect.", "valider": "", "text": "Un intentionniste, c'est quelqu'un qui est en train de chercher. Pas quelqu'un qui a cherché.\n\nUne personne qui compare des assurances habitation parce qu'elle déménage a un projet pour quelques semaines. Après, elle a signé. Chez quelqu'un d'autre, si on arrive trop tard.\n\nC'est pour ça que, sur un ciblage intentionniste, je regarde trois choses avant le volume :\n– quel signal a été détecté ;\n– quand il a été détecté ;\n– en combien de temps le message peut partir.\n\nUn fichier de « personnes intéressées par l'assurance » sans date, ce n'est pas de l'intention. C'est un souvenir.", "media": {"type": "video", "src": "anim/F2.mp4?v=3", "poster": "anim/F2.png?v=3"}, "download": "anim/F2.mp4?v=3"}, {"id": "F3", "date": "mercredi 18 novembre", "title": "Les 3 familles de signaux d'intention", "format": "schéma fixe en trois colonnes — « Déclaratif » (la personne le dit : formulaire, questionnaire), « Comportemental » (elle le montre : recherches, comparaisons, navigation), « Moment de vie » (elle le vit : déménagement, naissance, nouveau véhicule). Sous chaque colonne, une ligne « fiable / rapide / à dater ». Sans chiffres.", "pourquoi": "Fanny explique son métier, le ciblage intentionniste, de façon pédagogique.", "source": "aucune.", "ressource": "comptage d'intentionnistes sur la catégorie du prospect.", "valider": "", "text": "Tous les signaux d'intention ne se valent pas.\n\nQuand je prépare un ciblage intentionniste, je distingue trois familles :\n\n– le déclaratif : la personne le dit elle-même, dans un formulaire ou un questionnaire. C'est le plus explicite.\n– le comportemental : elle le montre, par ses recherches ou ses comparaisons. C'est souvent le plus frais.\n– le moment de vie : elle le vit, un déménagement, une naissance, un nouveau véhicule. C'est celui qui ouvre le plus de besoins à la fois.\n\nLe meilleur ciblage croise souvent les trois. Et pour chacun, une question reste la même : depuis quand le sait-on ?\n\nLequel de ces signaux utilisez-vous aujourd'hui ?", "media": {"type": "image", "src": "visuels/F3.png?v=3"}, "download": "visuels/F3.png?v=3"}, {"id": "F4", "date": "mercredi 25 novembre", "title": "Le comptage en entonnoir", "format": "animation 12 s — un entonnoir qui se resserre en 5 étages : habitants de la zone → profil recherché → réellement joignables → accord pour le canal → hors clients actuels. Sans chiffres inventés : des barres qui raccourcissent.", "pourquoi": "Fanny montre son niveau de détail ; c'est la question que tout client pose (« combien je peux toucher ? »), traitée avec transparence.", "source": "aucune.", "ressource": "comptage détaillé étage par étage, sur la zone du prospect.", "valider": "", "text": "« Combien de personnes je peux toucher ? »\n\nC'est la première question d'un client. Ce n'est pas la plus utile.\n\nUn bon comptage ressemble plutôt à un entonnoir :\n– combien de personnes habitent la zone ;\n– combien correspondent au profil recherché ;\n– combien sont réellement joignables ;\n– combien ont donné leur accord pour le canal choisi ;\n– combien restent une fois les clients actuels retirés.\n\nEntre la première ligne et la dernière, le chiffre peut fondre. Et c'est la dernière qui compte pour le budget, et pour le bilan.\n\nQuand je présente un comptage, je montre chaque étage. La discussion n'est plus la même.", "media": {"type": "video", "src": "anim/F4.mp4?v=3", "poster": "anim/F4.png?v=3"}, "download": "anim/F4.mp4?v=3"}, {"id": "F5", "date": "mercredi 2 décembre", "title": "Les exclusions : sans elles, le bilan ment", "format": "schéma fixe — la cible brute, quatre exclusions qui en retirent une part (clients actuels, contactés récemment, opposés, données incomplètes), la cible réelle.", "pourquoi": "détail d'exécution que les clients sous-estiment ; Fanny y prouve la rigueur de ses analyses de résultats.", "source": "aucune.", "ressource": "aucune.", "valider": "", "text": "Dans une campagne de conquête, la liste de ceux qu'on ne contacte pas compte autant que la cible.\n\nLes clients actuels. Les personnes contactées récemment. Celles qui se sont opposées. Les contacts aux données incomplètes.\n\nOubliez une seule de ces exclusions, et le bilan ment. On croit avoir recruté de nouveaux clients alors qu'on a surtout relancé les anciens.\n\nChez nous, les exclusions sont écrites dans le brief et vérifiées avant l'envoi. Pas découvertes dans le reporting.\n\nChez vous, qui valide les exclusions : l'équipe CRM, l'équipe acquisition, ou personne ?", "media": {"type": "image", "src": "visuels/F5.png?v=3"}, "download": "visuels/F5.png?v=3"}]}]}</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const linkify = s => esc(s).replace(/\b((?:[a-z0-9-]+\.)+(?:com|fr)(?:\/[^\s—]*)?)/gi, m => {
+  const u = m.replace(/[.,;)]+$/, ''); const rest = m.slice(u.length);
+  return `<a href="https://${u}" target="_blank" rel="noopener">${u}</a>${rest}`; });
+const POSTS = {};
+const isNone = s => !s || /^aucune/i.test(s);
+
+function media(p){
+  const m = p.media;
+  if (m.type === 'image') return `<div class="media"><img src="${m.src}" alt="Visuel ${p.id}" loading="lazy" onerror="this.parentNode.classList.add('err')"><div class="missing">Visuel ${p.id} introuvable</div></div>`;
+  if (m.type === 'video') return `<div class="media"><video src="${m.src}" poster="${m.poster}" autoplay muted loop playsinline preload="metadata" onerror="this.parentNode.classList.add('err')"></video><div class="missing">Animation ${p.id} en cours de production</div></div>`;
+  const n = m.pages.length;
+  return `<div class="media caro" data-i="0" data-n="${n}"><div class="track">${m.pages.map((s,i)=>`<img src="${s}" alt="Page ${i+1} sur ${n}" ${i?'loading="lazy"':''}>`).join('')}</div>
+    <span class="count">1 / ${n}</span>
+    <button class="arr l" aria-label="Page précédente" disabled>‹</button><button class="arr r" aria-label="Page suivante">›</button></div>`;
+}
+
+function card(per, p){
+  POSTS[p.id] = p;
+  const res = isNone(p.ressource) ? '' : `<dt>Ressource proposée</dt><dd class="res">${esc(p.ressource)}</dd>`;
+  const val = p.valider ? `<dt>À valider</dt><dd class="val">${esc(p.valider)}</dd>` : '';
+  const dl = p.download.split('/').pop();
+  return `<article class="item" id="post-${p.id}">
+   <div class="card">
+    <div class="ch"><img src="${per.photo}" alt=""><div class="who"><b>${esc(per.name)}</b><span class="hl">${esc(per.headline)}</span><span class="dt"><em>Prévu</em> · ${esc(p.date)}</span></div><span class="pid">${p.id}</span></div>
+    <div class="txt clamp"><span class="body">${esc(p.text)}</span><button class="more" type="button">… voir plus</button></div>
+    ${media(p)}
+    <div class="bar" aria-hidden="true"><span>J'aime</span><span>Commenter</span><span>Republier</span><span>Envoyer</span></div>
+   </div>
+   <div class="note"><dl>
+    <dt>Pourquoi ce post</dt><dd>${esc(p.pourquoi)}</dd>
+    <dt>Source (1er commentaire)</dt><dd>${isNone(p.source) ? 'Aucune' : linkify(p.source)}</dd>
+    ${res}${val}</dl>
+    <div class="acts"><button class="btn pri copy" type="button" data-id="${p.id}">Copier le texte</button>
+    <a class="btn" href="${p.download}" download="${dl.split('/').pop().split('?')[0]}">Télécharger le visuel</a></div>
+   </div></article>`;
+}
+
+DATA.people.forEach(per => { $('#panel-'+per.key+' .feed').innerHTML = per.posts.map(p => card(per, p)).join(''); });
+
+// voir plus
+document.addEventListener('click', e => {
+  const t = e.target;
+  if (t.matches('.more')) { t.parentNode.classList.remove('clamp'); return; }
+  if (t.closest('.txt.clamp')) { t.closest('.txt').classList.remove('clamp'); return; }
+  if (t.matches('.arr')) {
+    const c = t.closest('.caro'); let i = +c.dataset.i + (t.classList.contains('r') ? 1 : -1);
+    go(c, i); return; }
+  if (t.matches('.copy')) { copy(POSTS[t.dataset.id].text, t); return; }
+  const cp = t.closest('.calpost');
+  if (cp) { const id = cp.dataset.goto; select(id[0]); const el = document.getElementById('post-'+id); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+});
+function go(c, i){
+  const n = +c.dataset.n; i = Math.max(0, Math.min(n-1, i)); c.dataset.i = i;
+  $('.track', c).style.transform = `translateX(${-100*i}%)`;
+  $('.count', c).textContent = `${i+1} / ${n}`;
+  $('.arr.l', c).disabled = i === 0; $('.arr.r', c).disabled = i === n-1;
+}
+// balayage tactile sur les carrousels
+document.querySelectorAll('.caro').forEach(c => {
+  let x0 = null;
+  c.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive:true});
+  c.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(c, +c.dataset.i + (dx < 0 ? 1 : -1)); x0 = null; });
+});
+
+let toastT;
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('on'), 1800); }
+async function copy(text, btn){
+  let ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; }
+  catch (e) {
+    const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+    try { ok = document.execCommand('copy'); } catch (e2) { ok = false; }
+    ta.remove();
+  }
+  window.__lastCopied = ok ? text : null;
+  if (ok) { btn.textContent = 'Texte copié'; btn.classList.add('ok'); toast('Texte copié dans le presse-papiers');
+    setTimeout(()=>{ btn.textContent = 'Copier le texte'; btn.classList.remove('ok'); }, 1800); }
+  else toast('Copie impossible : sélectionnez le texte à la main');
+}
+
+function select(k){
+  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.k === k ? 'true' : 'false'));
+  document.querySelectorAll('.panel').forEach(p => p.hidden = p.id !== 'panel-'+k);
+  history.replaceState(null, '', '#'+k);
+}
+document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => select(b.dataset.k)));
+document.querySelector('nav.tabs').addEventListener('keydown', e => {
+  const ks = ['J','S','F']; const cur = ks.indexOf(document.querySelector('.tab[aria-selected=true]').dataset.k);
+  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { const k = ks[(cur + (e.key === 'ArrowRight' ? 1 : 2)) % 3]; select(k); $('#tab-'+k).focus(); }
+});
+const h = location.hash.slice(1).toUpperCase(); if (['J','S','F'].includes(h)) select(h);
+</script>
+</body></html>
