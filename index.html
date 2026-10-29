@@ -240,7 +240,7 @@ footer{color:var(--text);font-size:12.5px;text-align:center;padding:0 0 32px}
  .navin{display:grid;grid-template-columns:repeat(12,1fr);gap:0;padding:0}
  .nv{min-height:48px;padding:0 2px;gap:5px;font-size:13.5px;grid-column:span 3;order:1;border-top:0;border-bottom-width:3px}
  .nv img{width:24px;height:24px}
- .nv.x{grid-column:span 3;order:2;min-height:44px;font-size:13px;background:#1E293B;border-bottom-width:3px}
+ .nv.x{grid-column:span 3;order:2;min-height:44px;font-size:12px;background:#1E293B;border-bottom-width:3px}
  .nv.sep{margin-left:0}
  .nv .lf{display:none}
  main.wrap{padding-top:14px}
@@ -398,7 +398,7 @@ function replyHtml(p){
 }
 function cmtBlock(p){
   return `<details class="cmt" id="cmt-${p.id}"><summary><span>Commentaires proposés pour l'équipe<small>${p.comments.length} propositions + 1 réponse type de l'auteur</small></span></summary><div class="cb">
-   <p class="hint">À réécrire avec vos mots, au moment indiqué. Règles : <a href="#commenter">Commenter les posts des collègues</a>.</p>
+   <p class="hint">À réécrire avec vos mots, au moment indiqué.<br><a href="#commenter">Règles pour commenter ›</a></p>
    ${p.comments.map((c, i) => comment(p, i, false)).join('')}
    <p class="hint"><b>Réponse type de l'auteur</b> (l'algorithme valorise les fils de discussion) :</p>${replyHtml(p)}</div></details>`;
 }
