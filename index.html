@@ -1,41 +1,126 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Programme LinkedIn Live Data — pilote</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
-@font-face{font-family:Montserrat;src:url(assets/fonts/Montserrat-VF.ttf?v=6);font-weight:100 900;font-display:swap}
-@font-face{font-family:Poppins;src:url(assets/fonts/Poppins-Regular.ttf?v=6);font-weight:400;font-display:swap}
-@font-face{font-family:Poppins;src:url(assets/fonts/Poppins-Medium.ttf?v=6);font-weight:500;font-display:swap}
-@font-face{font-family:Poppins;src:url(assets/fonts/Poppins-SemiBold.ttf?v=6);font-weight:600;font-display:swap}
-@font-face{font-family:Poppins;src:url(assets/fonts/Poppins-Bold.ttf?v=6);font-weight:700;font-display:swap}
+@font-face{font-family:Montserrat;src:url(assets/fonts/Montserrat-VF.ttf?v=7);font-weight:100 900;font-display:swap}
+@font-face{font-family:Poppins;src:url(assets/fonts/Poppins-Regular.ttf?v=7);font-weight:400;font-display:swap}
+@font-face{font-family:Poppins;src:url(assets/fonts/Poppins-Medium.ttf?v=7);font-weight:500;font-display:swap}
+@font-face{font-family:Poppins;src:url(assets/fonts/Poppins-SemiBold.ttf?v=7);font-weight:600;font-display:swap}
+@font-face{font-family:Poppins;src:url(assets/fonts/Poppins-Bold.ttf?v=7);font-weight:700;font-display:swap}
 
-:root{--navy:#0F172A;--cyan:#0EA5E9;--grey:#F1F5F9;--text:#475569;--line:#E2E8F0}
+:root{--navy:#0F172A;--cyan:#0EA5E9;--grey:#F1F5F9;--text:#475569;--line:#E2E8F0;--navh:60px}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--navh) + 12px)}
 body{margin:0;background:var(--grey);color:var(--navy);font:400 15px/1.5 Poppins,system-ui,sans-serif}
 a{color:var(--cyan)}
-.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-header.top{background:var(--navy);color:#fff;padding:36px 0 0}
-.brand{display:flex;justify-content:space-between;align-items:center;gap:20px}
-.brand img{height:44px}
-h1{font:800 34px/1.15 Montserrat;margin:18px 0 12px;letter-spacing:-.01em}
-.intro{margin:0;max-width:980px;color:#E2E8F0;font-size:15px}
-.intro p{margin:0 0 4px}
-nav.tabs{display:flex;gap:6px;margin-top:28px;overflow-x:auto;scrollbar-width:none}
-nav.tabs::-webkit-scrollbar{display:none}
-.tab{display:flex;align-items:center;gap:12px;background:transparent;border:0;border-bottom:4px solid transparent;color:#CBD5E1;padding:12px 16px 14px;cursor:pointer;font:500 15px/1.25 Poppins;text-align:left;flex:none}
-.tab img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none;border:2px solid transparent}
-.tab b{display:block;font:700 15px Montserrat;color:#fff}
-.tab b i{font-style:normal}
-.tab span{font-size:13px}
-.tab[aria-selected=true]{border-bottom-color:var(--cyan);color:#fff}
-.tab[aria-selected=true] img{border-color:var(--cyan)}
-.tab:focus-visible{outline:2px solid var(--cyan);outline-offset:-2px}
-main{padding:28px 0 20px}
-.panel[hidden]{display:none}
-.feed{display:flex;flex-direction:column;align-items:center;gap:36px}
-.item{width:100%;max-width:555px}
+img[src*="logo_lds_sq.png"]{background:#fff;object-fit:contain!important;padding:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* en-tête */
+header.top{background:var(--navy);color:#fff;padding:16px 0 4px}
+.brand{display:inline-flex;align-items:center;gap:16px;text-decoration:none;color:#fff;min-height:44px}
+.brand img{height:32px}
+.brand span{font:700 16px/1.25 Montserrat;color:#fff;border-left:1px solid #334155;padding-left:16px}
+.brand small{display:block;font:400 12.5px Poppins;color:#CBD5E1}
+nav.nav{position:sticky;top:0;z-index:30;background:var(--navy);box-shadow:0 1px 0 #1E293B}
+.navin{display:flex;gap:2px}
+.nv{display:flex;align-items:center;justify-content:center;gap:8px;min-height:var(--navh);padding:0 14px;color:#CBD5E1;text-decoration:none;font:600 14.5px Poppins;border-bottom:4px solid transparent;border-top:4px solid transparent;white-space:nowrap}
+.nv img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid transparent;flex:none}
+.nv:hover{color:#fff}
+.nv[aria-current=page]{color:#fff;border-bottom-color:var(--cyan)}
+.nv[aria-current=page] img{border-color:var(--cyan)}
+.nv.sep{margin-left:auto}
+.nv:focus-visible,.btn:focus-visible,.pc:focus-visible,.calpost:focus-visible,.au:focus-visible,.qk:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+main.wrap{padding-top:24px;padding-bottom:48px;min-height:70vh}
+main:focus,h1:focus{outline:none}
+h1.v{font:800 28px/1.2 Montserrat;margin:0 0 6px;letter-spacing:-.01em}
+h2{font:800 21px/1.25 Montserrat;margin:0 0 6px}
+.lead{color:var(--text);margin:0 0 16px;font-size:14.5px}
+.blk{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-top:22px}
+.more-l{display:inline-flex;align-items:center;min-height:44px;margin-top:6px;font-weight:600;text-decoration:none}
+.more-l:hover{text-decoration:underline}
+/* accueil */
+.goal{background:var(--navy);color:#fff;border-radius:12px;padding:22px 24px}
+.goal h1{font:800 26px/1.2 Montserrat;margin:0 0 8px}
+.goal p{margin:0;color:#E2E8F0;max-width:860px}
+.wkhead{display:flex;justify-content:space-between;align-items:baseline;gap:4px 12px;flex-wrap:wrap}
+.tag{display:inline-block;background:var(--cyan);color:#fff;border-radius:999px;padding:2px 10px;font:600 12px Poppins;vertical-align:middle;margin-left:6px}
+.who4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.au{display:flex;flex-direction:column;gap:6px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--navy)}
+.au:hover{border-color:var(--cyan)}
+.au img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+.au .ad{display:flex;flex-direction:column}
+.au b{font:700 16px Montserrat}
+.au .ad span{font-size:13px;color:var(--text)}
+.au em{font-style:normal;font:600 13.5px Poppins;color:var(--cyan);margin-top:auto}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.qk{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:56px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;text-decoration:none;color:var(--navy);font:700 15px Montserrat}
+.qk small{display:block;font:400 13px Poppins;color:var(--text)}
+.qk:after{content:"›";font:600 24px Poppins;color:var(--cyan)}
+.qk:hover{border-color:var(--cyan)}
+/* cartes de post compactes */
+.grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.pc{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;text-decoration:none;color:var(--navy)}
+.pc:hover{border-color:var(--cyan)}
+.pc .th{position:relative;flex:none;width:96px;aspect-ratio:4/5;border-radius:8px;overflow:hidden;background:var(--grey)}
+.pc .th img{width:100%;height:100%;object-fit:cover;display:block}
+.pc .ty{position:absolute;left:6px;bottom:6px;background:rgba(15,23,42,.85);color:#fff;font:600 10.5px Poppins;border-radius:999px;padding:1px 8px}
+.pc .pb{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.pc .pw{display:flex;align-items:center;gap:6px;font:700 13px Montserrat}
+.pc .pw img{width:22px;height:22px;border-radius:50%;object-fit:cover}
+.pc .pm{font-size:12.5px;color:var(--text)}
+.pc .pm b{font-family:Montserrat;color:var(--cyan)}
+.pc .pt{font:600 14px/1.35 Poppins}
+.pc .op{margin-top:auto;padding-top:4px;font:600 13px Poppins;color:var(--cyan)}
+.grid5 .pc{flex-direction:column}
+.grid5 .pc .th{width:100%}
+.st{align-self:flex-start;display:inline-block;border:1.5px solid var(--navy);border-radius:999px;padding:1px 9px;font:600 11.5px Poppins;color:var(--navy);background:#fff}
+/* page auteur */
+.ah{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+.ah img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex:none;border:3px solid #fff}
+.ah p{margin:0;color:var(--text);font-size:14px}
+/* vue post */
+.crumb{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:-12px 0 6px;flex-wrap:wrap}
+.crumb a{display:inline-flex;align-items:center;min-height:44px;font-weight:600;text-decoration:none}
+.crumb span{color:var(--text);font-size:13.5px}
+.pv{display:grid;grid-template-columns:minmax(0,555px) minmax(0,1fr);gap:28px;align-items:start}
+.pvr{position:sticky;top:calc(var(--navh) + 14px);display:flex;flex-direction:column;gap:14px}
+.ph .pm{margin:0 0 4px;color:var(--text);font-size:13.5px}
+.ph .pm b{font-family:Montserrat;color:var(--cyan)}
+.ph h1.v{font-size:22px}
+.ph .st{margin-top:4px}
+.acts{display:grid;grid-template-columns:1fr;gap:8px}
+.acts .kind{font-size:12.5px;color:var(--text);margin:-2px 0 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:8px 18px;border-radius:999px;font:600 14.5px Poppins;cursor:pointer;text-decoration:none;border:1.5px solid var(--navy);background:#fff;color:var(--navy);text-align:center}
+.btn.pri{background:var(--navy);color:#fff}
+.btn:hover{border-color:var(--cyan)}
+.btn.ok{background:var(--cyan);border-color:var(--cyan);color:#fff}
+.btn.sm{min-height:44px;font-size:13.5px;padding:6px 14px}
+.btn.lk{border-color:transparent;background:transparent;color:var(--text);text-decoration:underline;min-height:44px}
+.btn.lk.ok{color:#fff;text-decoration:none}
+.info{background:#fff;border:1px solid var(--line);border-radius:10px}
+.info details{border-top:1px solid var(--line)}
+.info details:first-child{border-top:0}
+.info summary{display:flex;align-items:center;justify-content:space-between;min-height:48px;padding:0 16px;cursor:pointer;font:700 12.5px Montserrat;text-transform:uppercase;letter-spacing:.05em;list-style:none}
+.info summary::-webkit-details-marker{display:none}
+.info summary:after{content:"+";font:500 22px Poppins;color:var(--cyan)}
+.info details[open] summary:after{content:"−"}
+.info .dd{padding:0 16px 14px;font-size:13.5px;color:var(--text);overflow-wrap:anywhere}
+.info .dd .btn{margin-top:10px}
+.val{border:1.5px solid var(--navy);border-radius:10px;padding:10px 14px;background:#fff;font-size:13.5px}
+.val b,.res b{display:block;font:700 12px Montserrat;text-transform:uppercase;letter-spacing:.05em}
+.res{border-left:4px solid var(--cyan);background:#fff;border-radius:8px;padding:10px 14px;font-size:13.5px}
+.pn{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pn a,.pn span{display:flex;flex-direction:column;justify-content:center;min-height:56px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;text-decoration:none;color:var(--navy);font-size:12.5px;line-height:1.3}
+.pn a:hover{border-color:var(--cyan)}
+.pn b{font:700 12px Montserrat;color:var(--cyan)}
+.pn .nx{text-align:right}
+.pn span{visibility:hidden}
+.mbar{display:none}
+/* carte façon LinkedIn */
 .card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .ch{display:flex;gap:10px;padding:14px 16px 6px;align-items:flex-start}
 .ch img{width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none}
@@ -44,40 +129,28 @@ main{padding:28px 0 20px}
 .who .dt{font-size:12.5px;color:var(--text);display:block}
 .who .dt em{font-style:normal;color:var(--cyan);font-weight:600}
 .pid{margin-left:auto;font:700 12px Montserrat;color:var(--text);background:var(--grey);border-radius:6px;padding:3px 8px;flex:none}
-.txt{position:relative;padding:4px 16px 10px;font-size:14px;line-height:1.43;white-space:pre-wrap;word-wrap:break-word}
+.txt{padding:4px 16px 12px;font-size:14px;line-height:1.43;white-space:pre-wrap;word-wrap:break-word}
 .txt .body{display:block}
-.txt.clamp .body{max-height:calc(1.43em * 3);overflow:hidden;cursor:pointer}
-.more{position:absolute;right:16px;bottom:10px;background:#fff;border:0;padding:0 0 0 6px;font:500 14px/1.43 Poppins;color:var(--text);cursor:pointer}
-.more:hover{color:var(--cyan);text-decoration:underline}
-.txt:not(.clamp) .more{display:none}
 .media{position:relative;background:var(--grey);aspect-ratio:4/5;width:100%;overflow:hidden}
 .media img,.media video{display:block;width:100%;height:100%;object-fit:cover}
 .media .missing{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--text);font-size:14px}
 .media.err .missing{display:flex}
 .track{display:flex;height:100%;transition:transform .35s cubic-bezier(.16,1,.3,1)}
 .track img{flex:0 0 100%}
-.arr{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:0;background:rgba(15,23,42,.78);color:#fff;font:600 20px/40px Poppins;cursor:pointer;padding:0}
+.arr{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(15,23,42,.78);color:#fff;font:600 22px/44px Poppins;cursor:pointer;padding:0}
 .arr.l{left:10px}.arr.r{right:10px}
 .arr[disabled]{display:none}
 .count{position:absolute;top:10px;right:10px;background:rgba(15,23,42,.78);color:#fff;font:500 12px Poppins;border-radius:999px;padding:3px 10px}
 .bar{display:flex;justify-content:space-around;border-top:1px solid var(--line);margin:0 12px;padding:6px 0;color:var(--text);font:600 13px Poppins}
 .bar span{padding:8px 6px}
-.note{margin-top:10px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--cyan);border-radius:8px;padding:14px 16px;font-size:13.5px;color:var(--text)}
-.note dl{margin:0}
-.note dt{font:700 12px Montserrat;text-transform:uppercase;letter-spacing:.06em;color:var(--navy);margin-top:10px}
-.note dt:first-child{margin-top:0}
-.note dd{margin:2px 0 0}
-.note dd.res{color:var(--navy);font-weight:600}
-.note dd.val{color:var(--navy)}
-.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 16px;border-radius:999px;font:600 13.5px Poppins;cursor:pointer;text-decoration:none;border:1.5px solid var(--navy);background:#fff;color:var(--navy)}
-.btn.pri{background:var(--navy);color:#fff}
-.btn:hover{border-color:var(--cyan)}
-.btn.ok{background:var(--cyan);border-color:var(--cyan);color:#fff}
-section.extra{padding:20px 0 48px}
-h2{font:800 24px/1.2 Montserrat;margin:0 0 6px}
-.lead{color:var(--text);margin:0 0 18px;font-size:14.5px}
-.blk{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px;margin-top:28px}
+/* mode d'emploi */
+.sub{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 4px}
+.sub a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--navy);font:600 13.5px Poppins}
+.sub a:hover{border-color:var(--cyan)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{counter-increment:s;position:relative;padding:4px 0 4px 46px;min-height:34px;font-size:14.5px}
+ol.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;font:700 14px/32px Montserrat;text-align:center}
+ol.steps li span{color:var(--text)}
 .flow{display:grid;gap:12px}
 .fr{display:grid;grid-template-columns:minmax(0,1fr) 36px minmax(0,1.6fr);align-items:stretch;gap:0}
 .sig,.act{border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.4}
@@ -89,54 +162,24 @@ h2{font:800 24px/1.2 Montserrat;margin:0 0 6px}
 .ar{position:relative}
 .ar:before{content:"";position:absolute;left:6px;right:10px;top:50%;height:2px;background:var(--cyan)}
 .ar:after{content:"";position:absolute;right:4px;top:calc(50% - 6px);border:6px solid transparent;border-left:8px solid var(--cyan);border-right:0}
+/* calendrier */
 .cal{width:100%;border-collapse:separate;border-spacing:0 8px;table-layout:fixed}
 .cal thead th{font:700 13px Montserrat;text-align:left;padding:0 8px 2px;color:var(--navy)}
-.cal thead th img{width:26px;height:26px;border-radius:50%;vertical-align:middle;margin-right:6px}
-.cal th[scope=row]{width:110px;text-align:left;padding:10px 8px;background:var(--navy);color:#fff;border-radius:8px 0 0 8px;vertical-align:top}
+.cal thead th img{width:26px;height:26px;border-radius:50%;vertical-align:middle;margin-right:6px;object-fit:cover}
+.cal th[scope=row]{width:124px;text-align:left;padding:10px 8px;background:var(--navy);color:#fff;border-radius:8px 0 0 8px;vertical-align:top}
 .cal .wk{display:block;font:800 18px Montserrat}
 .cal .sp{display:block;font-size:12px;color:#CBD5E1}
+.cal .now:empty{display:none}
+.cal .now{display:inline-block;margin-top:6px;background:var(--cyan);color:#fff;border-radius:999px;padding:1px 8px;font:600 11px Poppins}
+.cal tr.cur td{background:#E0F2FE}
 .cal td{background:var(--grey);padding:0;vertical-align:top}
 .cal td:last-child{border-radius:0 8px 8px 0}
-.calpost{display:block;width:100%;height:100%;text-align:left;background:none;border:0;padding:10px;cursor:pointer;font:400 13px/1.35 Poppins;color:var(--navy)}
+.calpost{display:block;height:100%;min-height:44px;padding:10px;text-decoration:none;font:400 13px/1.35 Poppins;color:var(--navy)}
 .calpost:hover{background:#E2E8F0}
 .calpost .cd{display:block;color:var(--text);font-size:12px;margin-bottom:2px}
 .calpost b{font-family:Montserrat;color:var(--cyan)}
-footer{color:var(--text);font-size:12.5px;text-align:center;padding:0 0 32px}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .2s}
-.toast.on{opacity:1}
-@media (max-width:640px){
- .wrap{padding:0 12px}
- header.top{padding-top:22px}
- .brand img{height:34px}
- h1{font-size:24px}
- .intro{font-size:13.5px}
- nav.tabs{gap:0}
- .tab{flex:1 1 0;min-width:0;padding:10px 2px 12px;gap:6px;justify-content:center;flex-direction:column;text-align:center}
- .tab .ln{display:none}
- .tab img{width:36px;height:36px}
- .tab .tt>span{display:none}
- .tab b{font-size:13px}
- main{padding-top:16px}
- .feed{gap:28px}
- .card{border-radius:0;border-left:0;border-right:0}
- .item{margin:0 -12px;width:calc(100% + 24px)}
- .note{margin:10px 12px 0}
- .blk{padding:16px}
- .fr{grid-template-columns:1fr;gap:0}
- .ar{height:22px}
- .ar:before{left:18px;right:auto;top:2px;bottom:6px;width:2px;height:auto}
- .ar:after{left:12px;right:auto;top:auto;bottom:0;border:6px solid transparent;border-top:8px solid var(--cyan);border-bottom:0}
- .cal,.cal tbody,.cal tr,.cal th,.cal td{display:block;width:100%}
- .cal thead{display:none}
- .cal tr{margin-bottom:12px}
- .cal th[scope=row]{border-radius:8px 8px 0 0;display:flex;gap:10px;align-items:baseline;width:100%}
- .cal td{border-bottom:1px solid #fff}
- .cal td:last-child{border-radius:0 0 8px 8px}
- .calpost:before{content:attr(data-who);display:block;font:700 11px Montserrat;color:var(--text);text-transform:uppercase;letter-spacing:.05em}
-}
-
+/* organisation (contenu V6 inchangé) */
 .org{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-img[src$="logo_lds_sq.png"]{background:#fff;object-fit:contain!important;padding:3px}
 .oc{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:#fff}
 .oc h3{font:700 16px Montserrat;margin:0 0 8px;color:var(--navy)}
 .oc p,.oc li{margin:0 0 6px;color:var(--text);font-size:14px}
@@ -149,21 +192,106 @@ img[src$="logo_lds_sq.png"]{background:#fff;object-fit:contain!important;padding
 .ms{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 .ms span{background:var(--grey);border-radius:999px;padding:6px 14px;font-size:13.5px;color:var(--navy)}
 .ms b{color:var(--cyan)}
-@media (max-width:760px){.org{grid-template-columns:1fr}.tm{font-size:13px}.tm th,.tm td{padding:8px 6px}}
+footer{color:var(--text);font-size:12.5px;text-align:center;padding:0 0 32px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+.totop{position:fixed;right:18px;bottom:18px;z-index:40;width:48px;height:48px;border-radius:50%;border:0;background:var(--navy);color:#fff;font:600 22px/48px Poppins;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.25);opacity:0;pointer-events:none;transition:opacity .2s}
+.totop.on{opacity:1;pointer-events:auto}
+@media (max-width:960px){
+ .grid5{grid-template-columns:repeat(3,1fr)}
+ .who4{grid-template-columns:repeat(2,1fr)}
+ .org{grid-template-columns:1fr}
+ .nv{padding:0 9px}
+}
+@media (max-width:760px){
+ :root{--navh:96px}
+ .wrap{padding:0 12px}
+ header.top{padding:8px 0 2px}
+ .brand{gap:12px}
+ .brand img{height:24px}
+ .brand span{font-size:13.5px;padding-left:12px}
+ .brand small{font-size:11px}
+ .navin{display:grid;grid-template-columns:repeat(12,1fr);gap:0;padding:0}
+ .nv{min-height:48px;padding:0 2px;gap:5px;font-size:13.5px;grid-column:span 3;order:1;border-top:0;border-bottom-width:3px}
+ .nv img{width:24px;height:24px}
+ .nv.x{grid-column:span 4;order:2;min-height:44px;font-size:13px;background:#1E293B;border-bottom-width:3px}
+ .nv.sep{margin-left:0}
+ .nv .lf{display:none}
+ main.wrap{padding-top:14px}
+ .brand small{display:none}
+ h1.v{font-size:23px}
+ .goal{padding:16px}
+ .goal h1{font-size:21px}
+ .goal p{font-size:14px}
+ .blk{padding:16px;margin-top:16px}
+ .grid4,.grid5,.quick{grid-template-columns:1fr}
+ .grid5 .pc{flex-direction:row}
+ .pc .th,.grid5 .pc .th{width:84px}
+ .who4{grid-template-columns:1fr 1fr;gap:10px}
+ .au{padding:12px}
+ .au img{width:44px;height:44px}
+ .au .ad span{display:none}
+ .ah img{width:56px;height:56px}
+ .crumb{margin-top:-10px}
+ .pv{display:flex;flex-direction:column;gap:14px}
+ .pvr{display:contents}
+ .ph{order:1}.acts{order:2}.val,.res{order:3}.pvl{order:4}.info{order:5}.pn{order:6}
+ .acts{grid-template-columns:1fr 1fr}
+ .acts .kind,.acts .lk{grid-column:1/-1}
+ .acts .kind{text-align:center}
+ .btn{font-size:14px;padding:8px 10px}
+ .pvl{margin:0 -12px}
+ .card{border-radius:0;border-left:0;border-right:0}
+ body.mbar-on .mbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:35;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:8px 12px calc(8px + env(safe-area-inset-bottom))}
+ body.haspost main.wrap{padding-bottom:90px}
+ body.mbar-on .totop{bottom:82px}
+ body.mbar-on .toast{bottom:84px}
+ .fr{grid-template-columns:1fr;gap:0}
+ .ar{height:22px}
+ .ar:before{left:18px;right:auto;top:2px;bottom:6px;width:2px;height:auto}
+ .ar:after{left:12px;right:auto;top:auto;bottom:0;border:6px solid transparent;border-top:8px solid var(--cyan);border-bottom:0}
+ .cal,.cal tbody,.cal tr,.cal th,.cal td{display:block;width:100%}
+ .cal thead{display:none}
+ .cal tr{margin-bottom:12px}
+ .cal th[scope=row]{border-radius:8px 8px 0 0;display:flex;gap:10px;align-items:baseline;width:100%}
+ .cal .now{margin:0 0 0 auto}
+ .cal td{border-bottom:1px solid #fff}
+ .cal td:last-child{border-radius:0 0 8px 8px}
+ .calpost:before{content:attr(data-who);display:block;font:700 11px Montserrat;color:var(--text);text-transform:uppercase;letter-spacing:.05em}
+ .tm{font-size:13px}.tm th,.tm td{padding:8px 6px}
+ .totop{right:12px;bottom:12px}
+}
 </style></head>
 <body>
 <header class="top"><div class="wrap">
- <div class="brand"><img src="assets/logo_lds_white.png?v=6" alt="Live Data Solutions"></div>
- <h1>Programme LinkedIn Live Data — pilote</h1>
- <div class="intro">
-  <p>Trois voix en personal branding, sur l'expertise de chacun : Joanna (actualité data, CRM, RGPD, réglementation, innovations), Pierre (vision locale, drive-to-store, retail), Simon (data, ciblages, IA dans la data). Ces posts ne vendent pas les offres Live Data.</p>
-  <p>La page Live Data Solutions, elle, parle de nos solutions et de nos produits.</p>
-  <p>Cinq posts par voix, dans l'ordre de publication. Sous chaque post : pourquoi, la source du 1er commentaire, de quoi copier le texte et le visuel. En bas : l'organisation, le temps par semaine, le calendrier du 10 novembre au 10 décembre.</p>
- </div>
- <nav class="tabs" role="tablist" aria-label="Voix"><button class="tab" role="tab" id="tab-J" aria-controls="panel-J" aria-selected="true" data-k="J"><img src="assets/joanna.jpg?v=6" alt=""><span class="tt"><b>Joanna<i class="ln"> Hede</i></b><span>CEO</span></span></button><button class="tab" role="tab" id="tab-P" aria-controls="panel-P" aria-selected="false" data-k="P"><img src="assets/pierre.jpg?v=6" alt=""><span class="tt"><b>Pierre<i class="ln"> Sadain</i></b><span>Sales Manager</span></span></button><button class="tab" role="tab" id="tab-S" aria-controls="panel-S" aria-selected="false" data-k="S"><img src="assets/simon.jpg?v=6" alt=""><span class="tt"><b>Simon<i class="ln"> Vagnier</i></b><span>Directeur Business Unit</span></span></button><button class="tab" role="tab" id="tab-L" aria-controls="panel-L" aria-selected="false" data-k="L"><img src="assets/logo_lds_sq.png?v=6" alt=""><span class="tt"><b>Page Live Data<i class="ln"></i></b><span>Page entreprise</span></span></button></nav>
+ <a class="brand" href="#accueil"><img src="assets/logo_lds_white.png?v=7" alt="Live Data Solutions"><span>Programme LinkedIn · pilote<small>Joanna, Pierre, Simon et la page Live Data · 10/11 → 10/12</small></span></a>
 </div></header>
-<main class="wrap"><section class="panel" role="tabpanel" id="panel-J" aria-labelledby="tab-J"><div class="feed"></div></section><section class="panel" role="tabpanel" id="panel-P" aria-labelledby="tab-P" hidden><div class="feed"></div></section><section class="panel" role="tabpanel" id="panel-S" aria-labelledby="tab-S" hidden><div class="feed"></div></section><section class="panel" role="tabpanel" id="panel-L" aria-labelledby="tab-L" hidden><div class="feed"></div></section></main>
-<section class="extra"><div class="wrap">
+<nav class="nav" aria-label="Navigation principale"><div class="wrap navin"><a class="nv x" href="#accueil" data-r="accueil">Accueil</a><a class="nv" href="#J" data-r="J"><img src="assets/joanna.jpg?v=7" alt=""><span>Joanna</span></a><a class="nv" href="#P" data-r="P"><img src="assets/pierre.jpg?v=7" alt=""><span>Pierre</span></a><a class="nv" href="#S" data-r="S"><img src="assets/simon.jpg?v=7" alt=""><span>Simon</span></a><a class="nv" href="#L" data-r="L"><img src="assets/logo_lds_sq.png?v=7" alt=""><span><span class=lf>Page </span>Live Data</span></a><a class="nv x sep" href="#calendrier" data-r="calendrier">Calendrier</a><a class="nv x" href="#mode-emploi" data-r="mode-emploi">Mode d'emploi</a></div></nav>
+<main class="wrap" id="main" tabindex="-1"></main>
+<footer>Document de travail interne Live Data Solutions — rien n'est publié.</footer>
+<button class="totop" type="button" aria-label="Haut de page">↑</button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<template id="tpl-cal">
+<h1 class="v" tabindex="-1">Calendrier S46 à S50</h1>
+<p class="lead">Du 10 novembre au 10 décembre. Quatre posts par semaine : un par voix, un sur la page Live Data. Cliquez sur un post pour l'ouvrir.</p>
+<div class="blk"><table class="cal"><thead><tr><th></th><th><img src="assets/joanna.jpg?v=7" alt="">Joanna</th><th><img src="assets/pierre.jpg?v=7" alt="">Pierre</th><th><img src="assets/simon.jpg?v=7" alt="">Simon</th><th><img src="assets/logo_lds_sq.png?v=7" alt="">Page Live Data</th></tr></thead><tbody><tr data-w="S46"><th scope="row"><span class="wk">S46</span><span class="sp">9 → 13 nov.</span><span class="now"></span></th><td><a class="calpost" href="#J1" data-who="Joanna" data-k="J" data-goto="J1"><span class="cd">mardi 10 novembre, 8 h 30</span><span class="ct"><b>J1</b> · Actu : Digital Omnibus, ce que les États ont changé</span></a></td><td><a class="calpost" href="#P1" data-who="Pierre" data-k="P" data-goto="P1"><span class="cd">jeudi 12 novembre, 8 h 30</span><span class="ct"><b>P1</b> · Actu : Noël se joue encore en magasin</span></a></td><td><a class="calpost" href="#S1" data-who="Simon" data-k="S" data-goto="S1"><span class="cd">jeudi 12 novembre, 9 h</span><span class="ct"><b>S1</b> · Actu : l&#x27;IA ne répare pas une base sale</span></a></td><td><a class="calpost" href="#L1" data-who="Page Live Data" data-k="L" data-goto="L1"><span class="cd">jeudi 12 novembre, 11 h</span><span class="ct"><b>L1</b> · Opérateur data : ce qu&#x27;on fait vraiment</span></a></td></tr><tr data-w="S47"><th scope="row"><span class="wk">S47</span><span class="sp">16 → 20 nov.</span><span class="now"></span></th><td><a class="calpost" href="#J2" data-who="Joanna" data-k="J" data-goto="J2"><span class="cd">mardi 17 novembre, 8 h 30</span><span class="ct"><b>J2</b> · Actu : CNIL, 487 M€ d&#x27;amendes et le vrai chiffre</span></a></td><td><a class="calpost" href="#P2" data-who="Pierre" data-k="P" data-goto="P2"><span class="cd">mercredi 18 novembre, 8 h 30</span><span class="ct"><b>P2</b> · Un magasin sur cinq a fermé depuis 2019</span></a></td><td><a class="calpost" href="#S2" data-who="Simon" data-k="S" data-goto="S2"><span class="cd">jeudi 19 novembre, 9 h</span><span class="ct"><b>S2</b> · Un intentionniste a une date de péremption</span></a></td><td><a class="calpost" href="#L2" data-who="Page Live Data" data-k="L" data-goto="L2"><span class="cd">mercredi 18 novembre, 11 h</span><span class="ct"><b>L2</b> · Le comptage : combien de personnes vous pouvez vraiment toucher</span></a></td></tr><tr data-w="S48"><th scope="row"><span class="wk">S48</span><span class="sp">23 → 27 nov.</span><span class="now"></span></th><td><a class="calpost" href="#J3" data-who="Joanna" data-k="J" data-goto="J3"><span class="cd">mardi 24 novembre, 8 h 30</span><span class="ct"><b>J3</b> · Actu : Black Friday, le prix barré est contrôlé</span></a></td><td><a class="calpost" href="#P3" data-who="Pierre" data-k="P" data-goto="P3"><span class="cd">mercredi 25 novembre, 8 h 30</span><span class="ct"><b>P3</b> · Un réseau, ce n&#x27;est pas un marché, c&#x27;est 300 marchés</span></a></td><td><a class="calpost" href="#S3" data-who="Simon" data-k="S" data-goto="S3"><span class="cd">jeudi 26 novembre, 9 h</span><span class="ct"><b>S3</b> · Les 3 familles de signaux d&#x27;intention</span></a></td><td><a class="calpost" href="#L3" data-who="Page Live Data" data-k="L" data-goto="L3"><span class="cd">jeudi 26 novembre, 11 h</span><span class="ct"><b>L3</b> · Instant Mail® : ×2 sur le taux d&#x27;ouverture</span></a></td></tr><tr data-w="S49"><th scope="row"><span class="wk">S49</span><span class="sp">30 nov. → 4 déc.</span><span class="now"></span></th><td><a class="calpost" href="#J4" data-who="Joanna" data-k="J" data-goto="J4"><span class="cd">mardi 1er décembre, 8 h 30</span><span class="ct"><b>J4</b> · Actu : démarchage téléphonique, ce qui a changé le 11 août</span></a></td><td><a class="calpost" href="#P4" data-who="Pierre" data-k="P" data-goto="P4"><span class="cd">mercredi 2 décembre, 8 h 30</span><span class="ct"><b>P4</b> · 5 choses que j&#x27;ai apprises en parlant avec des directeurs de magasin</span></a></td><td><a class="calpost" href="#S4" data-who="Simon" data-k="S" data-goto="S4"><span class="cd">jeudi 3 décembre, 9 h</span><span class="ct"><b>S4</b> · Ventes attribuées ou ventes gagnées ?</span></a></td><td><a class="calpost" href="#L4" data-who="Page Live Data" data-k="L" data-goto="L4"><span class="cd">mercredi 2 décembre, 11 h</span><span class="ct"><b>L4</b> · Le RCS est prêt : 84 % des smartphones compatibles</span></a></td></tr><tr data-w="S50"><th scope="row"><span class="wk">S50</span><span class="sp">7 → 11 déc.</span><span class="now"></span></th><td><a class="calpost" href="#J5" data-who="Joanna" data-k="J" data-goto="J5"><span class="cd">mardi 8 décembre, 8 h 30</span><span class="ct"><b>J5</b> · Actu : réseaux sociaux et moins de 15 ans, ce qu&#x27;il reste de la loi</span></a></td><td><a class="calpost" href="#P5" data-who="Pierre" data-k="P" data-goto="P5"><span class="cd">mercredi 9 décembre, 8 h 30</span><span class="ct"><b>P5</b> · Ressource : votre zone de chalandise en 6 questions</span></a></td><td><a class="calpost" href="#S5" data-who="Simon" data-k="S" data-goto="S5"><span class="cd">jeudi 10 décembre, 9 h</span><span class="ct"><b>S5</b> · Ressource : 5 questions à poser à un fournisseur de données</span></a></td><td><a class="calpost" href="#L5" data-who="Page Live Data" data-k="L" data-goto="L5"><span class="cd">mercredi 9 décembre, 11 h</span><span class="ct"><b>L5</b> · Agences : nos 3 règles de partenariat</span></a></td></tr></tbody></table></div>
+</template>
+<template id="tpl-mode">
+<h1 class="v" tabindex="-1">Mode d'emploi</h1>
+<p class="lead">Publier un post, qui fait quoi, combien de temps, et ce qu'on fait des réactions.</p>
+<nav class="sub" aria-label="Dans cette page"><a href="#publier">Publier un post</a><a href="#organisation">Organisation et temps</a><a href="#like-rdv">Du like au RDV</a></nav>
+<div class="blk" id="publier">
+ <h2>Publier un post, en 6 étapes</h2>
+ <ol class="steps">
+  <li><b>Ouvrez votre onglet</b> en haut de page : Joanna, Pierre, Simon ou Live Data. <span>Vos 5 posts y sont, dans l'ordre de publication. Le post de la semaine est aussi sur l'accueil.</span></li>
+  <li><b>Ouvrez le post et relisez-le.</b> <span>Corrigez avec vos mots si besoin : rien ne part sans votre accord. Un post marqué « À valider » attend d'abord sa relecture.</span></li>
+  <li><b>« Copier le texte »</b>, puis collez-le dans LinkedIn (« Commencer un post »).</li>
+  <li><b>« Télécharger le visuel »</b>, puis ajoutez-le au post. <span>Image : comme une photo. Animation : comme une vidéo. Carrousel : comme un document (PDF).</span></li>
+  <li><b>Publiez à la date prévue.</b> <span>Elle est indiquée sur chaque post et dans le calendrier.</span></li>
+  <li><b>Collez la source en premier commentaire</b> (rubrique « Source », bouton « Copier la source »), puis répondez aux commentaires pendant 48 h.</li>
+ </ol>
+ <p class="lead" style="margin:14px 0 0">Pour envoyer un post précis à quelqu'un : « Copier le lien du post ». Chaque post a sa propre adresse (…/#J2, #P3…).</p>
+</div>
 
  <div class="blk" id="organisation">
   <h2>Organisation</h2>
@@ -190,74 +318,157 @@ img[src$="logo_lds_sq.png"]{background:#fff;object-fit:contain!important;padding
   <div class="ms"><span><b>Avant le 10/11</b> · validation DPO</span><span><b>10/11</b> · lancement</span><span><b>10/11 → 10/12</b> · 5 semaines, 20 posts</span><span><b>18/12</b> · bilan</span></div>
  </div>
 
+
  <div class="blk" id="like-rdv">
   <h2>Du like au RDV</h2>
   <p class="lead">Ce qu'on fait de chaque réaction. Une réaction n'est pas un accord : on ne pousse rien sans intérêt exprimé.</p>
   <div class="flow"><div class="fr"><div class="sig">Commentaire avec une question</div><div class="ar" aria-hidden="true"></div><div class="act"><b>Message sous 48 h</b>, puis proposition de <b>RDV</b>.</div></div><div class="fr"><div class="sig">Demande de la ressource<small>grille, comptage gratuit…</small></div><div class="ar" aria-hidden="true"></div><div class="act"><b>Envoi de la ressource</b>, puis proposition d'un échange.</div></div><div class="fr"><div class="sig">Like d'une personne ciblée</div><div class="ar" aria-hidden="true"></div><div class="act"><b>Invitation sans note.</b> Un message seulement après un intérêt exprimé.</div></div><div class="fr none"><div class="sig">Réaction hors cible</div><div class="ar" aria-hidden="true"></div><div class="act">Rien.</div></div></div>
  </div>
- <div class="blk" id="calendrier">
-  <h2>Calendrier S46 à S50</h2>
-  <p class="lead">Quatre posts par semaine : un par voix, un sur la page Live Data. Cliquez sur un post pour l'ouvrir.</p>
-  <table class="cal"><thead><tr><th></th><th><img src="assets/joanna.jpg?v=6" alt="">Joanna</th><th><img src="assets/pierre.jpg?v=6" alt="">Pierre</th><th><img src="assets/simon.jpg?v=6" alt="">Simon</th><th><img src="assets/logo_lds_sq.png?v=6" alt="">Page Live Data</th></tr></thead><tbody><tr><th scope="row"><span class="wk">S46</span><span class="sp">9 → 13 nov.</span></th><td><button class="calpost" data-who="Joanna" data-k="J" data-goto="J1"><span class="cd">mardi 10 novembre, 8 h 30</span><span class="ct"><b>J1</b> · Actu : Digital Omnibus, ce que les États ont changé</span></button></td><td><button class="calpost" data-who="Pierre" data-k="P" data-goto="P1"><span class="cd">jeudi 12 novembre, 8 h 30</span><span class="ct"><b>P1</b> · Actu : Noël se joue encore en magasin</span></button></td><td><button class="calpost" data-who="Simon" data-k="S" data-goto="S1"><span class="cd">jeudi 12 novembre, 9 h</span><span class="ct"><b>S1</b> · Actu : l&#x27;IA ne répare pas une base sale</span></button></td><td><button class="calpost" data-who="Page Live Data" data-k="L" data-goto="L1"><span class="cd">jeudi 12 novembre, 11 h</span><span class="ct"><b>L1</b> · Opérateur data : ce qu&#x27;on fait vraiment</span></button></td></tr><tr><th scope="row"><span class="wk">S47</span><span class="sp">16 → 20 nov.</span></th><td><button class="calpost" data-who="Joanna" data-k="J" data-goto="J2"><span class="cd">mardi 17 novembre, 8 h 30</span><span class="ct"><b>J2</b> · Actu : CNIL, 487 M€ d&#x27;amendes et le vrai chiffre</span></button></td><td><button class="calpost" data-who="Pierre" data-k="P" data-goto="P2"><span class="cd">mercredi 18 novembre, 8 h 30</span><span class="ct"><b>P2</b> · Un magasin sur cinq a fermé depuis 2019</span></button></td><td><button class="calpost" data-who="Simon" data-k="S" data-goto="S2"><span class="cd">jeudi 19 novembre, 9 h</span><span class="ct"><b>S2</b> · Un intentionniste a une date de péremption</span></button></td><td><button class="calpost" data-who="Page Live Data" data-k="L" data-goto="L2"><span class="cd">mercredi 18 novembre, 11 h</span><span class="ct"><b>L2</b> · Le comptage : combien de personnes vous pouvez vraiment toucher</span></button></td></tr><tr><th scope="row"><span class="wk">S48</span><span class="sp">23 → 27 nov.</span></th><td><button class="calpost" data-who="Joanna" data-k="J" data-goto="J3"><span class="cd">mardi 24 novembre, 8 h 30</span><span class="ct"><b>J3</b> · Actu : Black Friday, le prix barré est contrôlé</span></button></td><td><button class="calpost" data-who="Pierre" data-k="P" data-goto="P3"><span class="cd">mercredi 25 novembre, 8 h 30</span><span class="ct"><b>P3</b> · Un réseau, ce n&#x27;est pas un marché, c&#x27;est 300 marchés</span></button></td><td><button class="calpost" data-who="Simon" data-k="S" data-goto="S3"><span class="cd">jeudi 26 novembre, 9 h</span><span class="ct"><b>S3</b> · Les 3 familles de signaux d&#x27;intention</span></button></td><td><button class="calpost" data-who="Page Live Data" data-k="L" data-goto="L3"><span class="cd">jeudi 26 novembre, 11 h</span><span class="ct"><b>L3</b> · Instant Mail® : ×2 sur le taux d&#x27;ouverture</span></button></td></tr><tr><th scope="row"><span class="wk">S49</span><span class="sp">30 nov. → 4 déc.</span></th><td><button class="calpost" data-who="Joanna" data-k="J" data-goto="J4"><span class="cd">mardi 1er décembre, 8 h 30</span><span class="ct"><b>J4</b> · Actu : démarchage téléphonique, ce qui a changé le 11 août</span></button></td><td><button class="calpost" data-who="Pierre" data-k="P" data-goto="P4"><span class="cd">mercredi 2 décembre, 8 h 30</span><span class="ct"><b>P4</b> · 5 choses que j&#x27;ai apprises en parlant avec des directeurs de magasin</span></button></td><td><button class="calpost" data-who="Simon" data-k="S" data-goto="S4"><span class="cd">jeudi 3 décembre, 9 h</span><span class="ct"><b>S4</b> · Ventes attribuées ou ventes gagnées ?</span></button></td><td><button class="calpost" data-who="Page Live Data" data-k="L" data-goto="L4"><span class="cd">mercredi 2 décembre, 11 h</span><span class="ct"><b>L4</b> · Le RCS est prêt : 84 % des smartphones compatibles</span></button></td></tr><tr><th scope="row"><span class="wk">S50</span><span class="sp">7 → 11 déc.</span></th><td><button class="calpost" data-who="Joanna" data-k="J" data-goto="J5"><span class="cd">mardi 8 décembre, 8 h 30</span><span class="ct"><b>J5</b> · Actu : réseaux sociaux et moins de 15 ans, ce qu&#x27;il reste de la loi</span></button></td><td><button class="calpost" data-who="Pierre" data-k="P" data-goto="P5"><span class="cd">mercredi 9 décembre, 8 h 30</span><span class="ct"><b>P5</b> · Ressource : votre zone de chalandise en 6 questions</span></button></td><td><button class="calpost" data-who="Simon" data-k="S" data-goto="S5"><span class="cd">jeudi 10 décembre, 9 h</span><span class="ct"><b>S5</b> · Ressource : 5 questions à poser à un fournisseur de données</span></button></td><td><button class="calpost" data-who="Page Live Data" data-k="L" data-goto="L5"><span class="cd">mercredi 9 décembre, 11 h</span><span class="ct"><b>L5</b> · Agences : nos 3 règles de partenariat</span></button></td></tr></tbody></table>
- </div>
-</div></section>
-<footer>Document de travail interne Live Data Solutions — rien n'est publié.</footer>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script type="application/json" id="data">{"people": [{"key": "J", "name": "Joanna Hede", "role": "CEO", "photo": "assets/joanna.jpg?v=6", "headline": "CEO · Live Data Solutions", "posts": [{"id": "J1", "date": "mardi 10 novembre, 8 h 30", "title": "Actu : Digital Omnibus, ce que les États ont changé", "format": "visuel fixe en deux colonnes — « Proposé par la Commission (19/11/2025) » / « Position des États (21/10/2026) », trois lignes : définition de la donnée personnelle, cookies, IA.", "pourquoi": "actualité réglementaire de la semaine, qui touche toutes les équipes data et CRM. Joanna la traduit en trois points lisibles, sans jargon.", "source": "Parlement européen, Legislative Train « Digital Omnibus », proposition COM(2025) 837 du 19/11/2025 — europarl.europa.eu/legislative-train/package-digital-package/file-digital-package ; Journal du Net, « Digital Omnibus : ce que change le mandat du Conseil de l'UE du 21 octobre 2026 », 29/10/2026 — journaldunet.com/cybersecurite/1557131-digital-omnibus-ce-que-change-le-mandat-du-conseil-du-21-octobre-2026/", "ressource": "aucune.", "valider": "validation juridique avant publication (texte en négociation, à revérifier la veille).", "text": "Le RGPD va changer. Mais pas comme on l'annonçait il y a un an.\n\nLe 19 novembre 2025, la Commission européenne a présenté le « Digital Omnibus ». Un seul texte pour simplifier le RGPD, la directive ePrivacy et le Data Act.\n\nLe 21 octobre, les États membres ont arrêté leur position. Trois points à retenir :\n\n→ La définition de la donnée personnelle ne bouge pas. La Commission voulait l'assouplir, les États ont refusé.\n→ Les cookies restent dans la directive ePrivacy. Le « refus en un clic » promis par la Commission disparaît du texte des États.\n→ L'IA, elle, gagne : l'intérêt légitime pourrait suffire pour entraîner un modèle sur des données personnelles, avec un test de mise en balance et un droit d'opposition.\n\nRien n'est adopté. Les négociations avec le Parlement européen commencent.\n\nMon avis : ceux qui attendaient une grande dérégulation vont être déçus. Ceux qui ont des données propres et des consentements tracés n'ont rien à craindre.\n\nVous suivez ce texte de près, ou vous attendez la version finale ?", "media": {"type": "image", "src": "visuels/N_J1.png?v=6"}, "download": "visuels/N_J1.png?v=6"}, {"id": "J2", "date": "mardi 17 novembre, 8 h 30", "title": "Actu : CNIL, 487 M€ d'amendes et le vrai chiffre", "format": "visuel fixe — grand chiffre « 486 839 500 € », puis « 83 sanctions » et « 67 en procédure simplifiée ».", "pourquoi": "actu chiffrée sourcée (le format qui fait le plus réagir chez Bensaid), avec un angle de dirigeante : le risque concerne toutes les entreprises, pas seulement les géants.", "source": "CNIL, « Sanctions et mesures correctrices : la CNIL présente le bilan 2025 », 09/02/2026 — cnil.fr/fr/bilan-sanctions-2025 ; CNIL, rapport annuel 2025, 18/05/2026 — cnil.fr/fr/rapport-annuel-2025", "ressource": "aucune.", "valider": "validation juridique avant publication.", "text": "486 839 500 €. C'est le montant des amendes prononcées par la CNIL en 2025.\n\nNeuf fois plus qu'en 2024. Sauf que ce chiffre est trompeur.\n\nL'essentiel vient de deux décisions sur les cookies, contre Google et Shein. Ce ne sont pas elles qui devraient vous inquiéter.\n\nLe chiffre qui compte, c'est celui-ci : sur 83 sanctions, 67 ont été prononcées en procédure simplifiée. Des entreprises de toutes tailles, tous secteurs.\n\nAutrement dit, la CNIL ne contrôle plus seulement les géants. Elle va plus vite, et elle va partout.\n\nTrois questions que je pose en comité de direction :\n→ Qui, chez nous, sait où sont toutes nos données clients ?\n→ Pouvons-nous prouver chaque consentement, avec la date et la source ?\n→ Qui est prévenu en premier si la CNIL appelle demain ?\n\nVous auriez les réponses, chez vous ?", "media": {"type": "image", "src": "visuels/N_J2.png?v=6"}, "download": "visuels/N_J2.png?v=6"}, {"id": "J3", "date": "mardi 24 novembre, 8 h 30", "title": "Actu : Black Friday, le prix barré est contrôlé", "format": "visuel fixe — une étiquette « 49 € » barrée à côté d'un prix réduit, avec la règle : « Prix de référence = le prix le plus bas des 30 derniers jours ». Prix fictifs, signalés comme tels.", "pourquoi": "actu de la semaine du Black Friday (27/11) ; Joanna parle de réglementation qui impacte directement les marques et de la confiance des clients.", "source": "sondage OpinionWay pour Shopfully, 1 020 personnes, 18–21/09/2026, relayé par e-marketing.fr (octobre 2026) — e-marketing.fr/marques-1296/veille-et-tribune-2251/achats-de-noel-comment-les-francais-preparent-leurs-achats-175674 ; DGCCRF, « Annonces de réduction de prix : ce que vous devez savoir », règle en vigueur, page consultée le 29/10/2026 — economie.gouv.fr/dgccrf/les-fiches-pratiques/annonces-de-reduction-de-prix-ce-que-vous-devez-savoir", "ressource": "aucune.", "valider": "validation juridique avant publication. La règle des 30 jours date de 2022 : c'est l'étude Shopfully qui fait l'actualité.", "text": "Vendredi, c'est le Black Friday. Et chaque prix barré sera regardé de près.\n\n27 % des Français se disent « chasseurs de bonnes affaires ». Pour eux, le Black Friday est le coup d'envoi des achats de Noël. Ils comparent, ils vérifient, et 37 % d'entre eux comptent utiliser l'IA pour trouver les meilleures offres.\n\nPendant ce temps, la règle n'a pas changé : une réduction annoncée doit partir du prix le plus bas pratiqué au cours des 30 derniers jours. Pas du prix de l'été. Pas d'un prix « conseillé ».\n\nEt le mot « soldes » reste interdit en dehors des périodes légales.\n\nCe qui me frappe : on a des clients qui vérifient chaque prix avec une IA, et des marques qui prennent encore le risque d'un prix de référence gonflé. Une fausse promo se voit plus vite qu'avant.\n\nUne bonne promo, c'est aussi une promo qu'on peut défendre.\n\nVous avez vérifié vos prix de référence avant vendredi ?", "media": {"type": "image", "src": "visuels/N_J3.png?v=6"}, "download": "visuels/N_J3.png?v=6"}, {"id": "J4", "date": "mardi 1er décembre, 8 h 30", "title": "Actu : démarchage téléphonique, ce qui a changé le 11 août", "format": "animation 12 s (reprise de la V5) — une frise avec le 11 août 2026 ; après la date, chaque appel s'arrête sur « Accord préalable ? » et seuls ceux qui portent « accord prouvé » passent.", "pourquoi": "réglementation qui change le quotidien des équipes commerciales et marketing ; Joanna en tire une conviction sur la collecte du consentement.", "source": "Service-Public.fr, « Démarchage téléphonique abusif, spam vocal ou par SMS : que faire ? », vérifié le 12/08/2026 — service-public.gouv.fr/particuliers/vosdroits/F33267", "ressource": "aucune.", "valider": "validation juridique avant publication.", "text": "Depuis le 11 août, appeler un particulier pour lui vendre quelque chose suppose son accord préalable.\n\nIl y a des exceptions, notamment quand un contrat est en cours. Mais pour la conquête, la règle a changé.\n\nCe que ça veut dire, concrètement :\n→ un numéro sans preuve de consentement ne sert plus à prospecter ;\n→ cet accord est valable un an au maximum ;\n→ sa preuve doit être conservée trois ans.\n\nEt le réflexe « on passe par l'email ou le SMS » ne règle rien : en BtoC, ces canaux demandent eux aussi un accord préalable, sauf pour ses propres clients et sous conditions.\n\nJe crois que c'est une bonne nouvelle pour ceux qui travaillent proprement. Le vrai chantier n'est plus le fichier. C'est le moment où on demande l'accord : sur le site, en magasin, au moment d'un devis.\n\nTrois mois après, où en êtes-vous ?", "media": {"type": "video", "src": "anim/FL1.mp4?v=6", "poster": "anim/FL1.png?v=6"}, "download": "anim/FL1.mp4?v=6"}, {"id": "J5", "date": "mardi 8 décembre, 8 h 30", "title": "Actu : réseaux sociaux et moins de 15 ans, ce qu'il reste de la loi", "format": "visuel fixe — frise en trois dates : 21 juillet (loi adoptée), 14 août (interdiction censurée par le Conseil constitutionnel), 24 août (loi promulguée sans elle).", "pourquoi": "sujet cité par Simon et Joanna (« interdiction réseaux sociaux ») ; Joanna l'analyse sous l'angle de la donnée et des marques, pas de la polémique.", "source": "Vie-publique.fr, « Loi du 24 août 2026 visant à protéger les mineurs des risques auxquels les expose l'utilisation des réseaux sociaux », 25/08/2026 — vie-publique.fr/loi/301799-proteger-les-mineurs-risques-des-reseaux-sociaux-loi-du-24-aout-2026 ; Conseil constitutionnel, décision n° 2026-911 DC du 14/08/2026.", "ressource": "aucune.", "valider": "validation juridique avant publication.", "text": "On a beaucoup lu que les réseaux sociaux seraient interdits aux moins de 15 ans en France. Ce n'est pas le cas.\n\nLe 21 juillet, le Parlement a adopté une loi qui prévoyait cette interdiction.\nLe 14 août, le Conseil constitutionnel l'a censurée : une interdiction générale porte une atteinte jugée disproportionnée à la liberté d'expression, et le texte ne garantissait pas assez le respect de la vie privée.\nLe 24 août, la loi a été promulguée sans elle. Il reste notamment l'interdiction du portable au lycée.\n\nPourquoi j'en parle ici ? Parce que la question de fond n'est pas tranchée : comment vérifier l'âge de quelqu'un sans collecter encore plus de données sur lui ?\n\nC'est la même tension que dans tous nos métiers. Plus on veut protéger, plus on a besoin de savoir qui est en face. Et plus il faut être irréprochable sur ce qu'on fait de cette information.\n\nLe sujet va revenir. Les marques qui s'adressent aux jeunes ont intérêt à s'y préparer dès maintenant.\n\nVérifier l'âge sans tout savoir de la personne : vous pensez que c'est possible ?", "media": {"type": "image", "src": "visuels/N_J5.png?v=6"}, "download": "visuels/N_J5.png?v=6"}]}, {"key": "P", "name": "Pierre Sadain", "role": "Sales Manager", "photo": "assets/pierre.jpg?v=6", "headline": "Sales Manager · Live Data Solutions", "posts": [{"id": "P1", "date": "jeudi 12 novembre, 8 h 30", "title": "Actu : Noël se joue encore en magasin", "format": "visuel fixe (repris de la V5) — grand chiffre « 8 sur 10 » et une mini-carte de trois zones de magasin.", "pourquoi": "actu chiffrée de saison, au cœur du sujet de Pierre : le magasin reste le centre du parcours, et chaque magasin a sa zone.", "source": "sondage OpinionWay pour Shopfully, 1 020 personnes, 18–21/09/2026, relayé par Comarketing-News (octobre 2026) — comarketing-news.fr/noel-2026-le-magasin-resiste-lia-sinstalle/", "ressource": "aucune.", "valider": "le retour terrain (« ce que je vois chez les enseignes ») doit correspondre à ce que Pierre constate.", "text": "82 % des Français qui préparent leurs achats de fêtes passeront par un magasin.\n\nSeuls 18 % achèteront uniquement en ligne. Et pour trouver des idées, 45 % disent qu'ils vont tout simplement se promener en magasin.\n\nOn annonce la fin du magasin tous les ans. Chaque année, à Noël, les chiffres disent l'inverse.\n\nCe que je vois chez les enseignes que je rencontre : le magasin n'a pas perdu ses clients, il a perdu le contact avec eux entre deux visites. Le client vient moins souvent, mais il vient avec une idée précise.\n\nL'enjeu n'est donc pas de faire venir « du monde ». C'est de faire venir les bonnes personnes, autour du bon magasin, au bon moment.\n\nPour vous, Noël 2026 se jouera en magasin ou en ligne ?", "media": {"type": "image", "src": "visuels/S1.png?v=6"}, "download": "visuels/S1.png?v=6"}, {"id": "P2", "date": "mercredi 18 novembre, 8 h 30", "title": "Un magasin sur cinq a fermé depuis 2019", "format": "visuel fixe — deux barres : « Parc de magasins : −20 % » et « Fréquentation : −13 % », et « jusqu'à −25 % de trafic sur les emplacements les moins attractifs ». Source Procos en pied.", "pourquoi": "analyse sectorielle chiffrée (format Thréard) ; Pierre pose une conviction forte sur le retail physique.", "source": "Procos, « What's next for l'évolution de l'activité du commerce spécialisé », conférence du 17/06/2026, newsletter de juillet 2026 — procos.org/images/procos/images_page_d_accueil/Newsletter/Juillet_2026/news_95_activite_commerce.pdf", "ressource": "aucune.", "valider": "", "text": "Un magasin sur cinq a fermé en France depuis 2019.\n\nC'est le chiffre présenté par Procos en juin : −20 % de magasins dans le commerce spécialisé entre 2019 et 2025. Et −13 % de fréquentation.\n\nLa moitié de ces fermetures vient de défaillances. L'autre moitié est voulue : les enseignes rationalisent leurs réseaux.\n\nCe qui m'intéresse, c'est où ça ferme. Les centres-villes et les petits centres commerciaux sont les plus touchés. Les retail parks et les meilleurs emplacements tiennent. Les emplacements les moins attractifs ont perdu près de 25 % de leur trafic.\n\nMa lecture : il n'y a pas « un » commerce physique en crise. Il y a des magasins qui ont une raison d'être visités, et d'autres qui comptent encore sur le passage.\n\nLe passage ne suffit plus. Chaque magasin doit aller chercher sa zone.\n\nDans votre réseau, quels magasins tiennent le mieux, et pourquoi ?", "media": {"type": "image", "src": "visuels/N_P2.png?v=6"}, "download": "visuels/N_P2.png?v=6"}, {"id": "P3", "date": "mercredi 25 novembre, 8 h 30", "title": "Un réseau, ce n'est pas un marché, c'est 300 marchés", "format": "visuel fixe — 11,6 % en grand, puis trois barres de vacance 2024 : centres commerciaux 16,1 %, pieds d'immeuble 10,9 %, zones commerciales 7,2 %. Source CNC en pied.", "pourquoi": "vision locale de Pierre : les écarts entre formats et territoires justifient un pilotage magasin par magasin.", "source": "Conseil national du commerce, rapport « La vacance commerciale en centre-ville », 30/06/2026 — entreprises.gouv.fr/files/files/Entites/CNC/cnc_rapport_gt_vacance_commerciale.pdf ; Banque des Territoires (Localtis), 03/07/2026 — banquedesterritoires.fr/vacance-commerciale-il-faut-travailler-sur-lhabitabilite-des-centres-villes-souligne-le-conseil", "ressource": "aucune.", "valider": "", "text": "11,6 %. C'est le taux de vacance commerciale moyen en France en 2025. Il était de 9,5 % en 2019.\n\nMais la moyenne cache tout. En 2024, selon le même rapport :\n→ 16,1 % dans les centres commerciaux ;\n→ 10,9 % en pied d'immeuble, dans les rues commerçantes ;\n→ 7,2 % dans les zones commerciales.\n\nDeux magasins de la même enseigne peuvent vivre dans deux mondes différents. Pas le même trafic, pas les mêmes clients, pas la même concurrence à 10 minutes.\n\nC'est pour ça que je ne crois pas aux plans d'animation nationaux déclinés à l'identique dans chaque point de vente. Un réseau de 300 magasins, ce n'est pas un marché. C'est 300 marchés locaux.\n\nLa bonne question n'est pas « combien on investit cette année ? », mais « où, et pour quel magasin ? ».\n\nChez vous, le budget local se décide au siège ou en magasin ?", "media": {"type": "image", "src": "visuels/N_P3.png?v=6"}, "download": "visuels/N_P3.png?v=6"}, {"id": "P4", "date": "mercredi 2 décembre, 8 h 30", "title": "5 choses que j'ai apprises en parlant avec des directeurs de magasin", "format": "visuel fixe — liste de cinq leçons numérotées, en grand.", "pourquoi": "format « liste de leçons » et retour terrain (Thréard) ; Pierre parle de ses rendez-vous, sans nommer personne et sans vendre.", "source": "aucune (retour terrain).", "ressource": "aucune.", "valider": "les cinq leçons doivent être les siennes ; à reformuler avec ses mots et ses exemples.", "text": "Ce que j'ai appris en parlant avec des directeurs de magasin. Cinq choses.\n\n1. Ils connaissent leur zone mieux que n'importe quel tableau de bord. Demandez-leur d'où viennent leurs clients : ils vous répondent rue par rue.\n\n2. Le premier frein n'est pas le budget. C'est le temps. Une action locale qui leur demande trois réunions ne se fera pas.\n\n3. Ils veulent un résultat par magasin. Un bilan national ne leur dit rien sur leur propre point de vente.\n\n4. Le samedi ne se prépare pas le vendredi. Ceux qui remplissent leur magasin travaillent leur zone dix jours avant.\n\n5. Ils se méfient des promesses. Ils font confiance à ce qu'ils voient en caisse.\n\nSi je devais n'en garder qu'une : partir du magasin, pas de la campagne.\n\nDirecteurs de magasin, qu'est-ce que j'ai oublié ?", "media": {"type": "image", "src": "visuels/N_P4.png?v=6"}, "download": "visuels/N_P4.png?v=6"}, {"id": "P5", "date": "mercredi 9 décembre, 8 h 30", "title": "Ressource : votre zone de chalandise en 6 questions", "format": "carrousel PDF 8 pages — couverture, six questions (une par page), page finale « Envoyez-moi un message, je vous envoie la grille ».", "pourquoi": "ressource gratuite (le lead magnet du modèle Thréard), utile à un directeur de magasin ou de réseau, sans produit Live Data.", "source": "aucune.", "ressource": "la grille « zone de chalandise en 6 questions », envoyée par message à ceux qui la demandent.", "valider": "", "text": "Votre magasin a une zone de chalandise. Mais la connaissez-vous vraiment ?\n\nSix questions que je pose avant de parler de n'importe quelle action locale :\n\n1. Jusqu'où vos clients viennent-ils, en minutes de trajet, pas en kilomètres ?\n2. Combien d'habitants vivent dans cette zone ?\n3. Quelle part de vos clients habite vraiment autour du magasin ?\n4. Où sont vos concurrents, à moins de 10 minutes ?\n5. Qui, dans la zone, ne vous connaît pas encore ?\n6. Comment saurez-vous qu'une action a fait venir du monde en magasin ?\n\nSi vous répondez à la sixième avant de lancer l'action, vous avez déjà une longueur d'avance.\n\nJ'ai mis ces questions dans une grille d'une page. Si elle vous est utile, envoyez-moi un message, je vous l'envoie.", "media": {"type": "carousel", "pages": ["carrousels/pages/N_P5-01.png?v=6", "carrousels/pages/N_P5-02.png?v=6", "carrousels/pages/N_P5-03.png?v=6", "carrousels/pages/N_P5-04.png?v=6", "carrousels/pages/N_P5-05.png?v=6", "carrousels/pages/N_P5-06.png?v=6", "carrousels/pages/N_P5-07.png?v=6", "carrousels/pages/N_P5-08.png?v=6"]}, "download": "carrousels/N_P5.pdf?v=6"}]}, {"key": "S", "name": "Simon Vagnier", "role": "Directeur Business Unit", "photo": "assets/simon.jpg?v=6", "headline": "Directeur Business Unit · Live Data Solutions", "posts": [{"id": "S1", "date": "jeudi 12 novembre, 9 h", "title": "Actu : l'IA ne répare pas une base sale", "format": "schéma fixe (repris de la V5) — « base sale → IA → décisions fausses ».", "pourquoi": "sujet de Simon (IA dans la data) ; actu chiffrée sourcée, puis conviction et trois questions concrètes.", "source": "Adobe, rapport « IA et tendances digitales 2026 », 7 000 répondants, relayé par J'ai un pote dans la com, 04/03/2026 — jai-un-pote-dans-la.com/rapport-adobe-2026-ia-agentique-adoption-france/", "ressource": "aucune.", "valider": "", "text": "78 % des entreprises françaises citent l'intégration et la qualité des données comme le premier frein pour passer à l'échelle avec l'IA agentique.\n\nEt seules 36 % jugent leurs données suffisantes pour l'IA aujourd'hui.\n\nCe chiffre ne me surprend pas. On achète l'outil d'abord, on regarde la donnée ensuite.\n\nLe problème : l'IA ne répare pas une base sale. Un modèle qui apprend sur des emails périmés, des doublons et des consentements introuvables produit des décisions fausses. Plus vite, et avec plus d'assurance.\n\nAvant n'importe quel projet d'IA, je poserais trois questions :\n→ Quelle part de ma base est réellement joignable ?\n→ Pour quels canaux ai-je la preuve du consentement ?\n→ Quand ces données ont-elles été vérifiées pour la dernière fois ?\n\nSi les réponses sont floues, votre premier projet d'IA, c'est celui-là.\n\nVous avez commencé par l'outil ou par la donnée ?", "media": {"type": "image", "src": "visuels/J3.png?v=6"}, "download": "visuels/J3.png?v=6"}, {"id": "S2", "date": "jeudi 19 novembre, 9 h", "title": "Un intentionniste a une date de péremption", "format": "animation 12 s (reprise de la V5) — une frise : le signal d'intention s'allume, une fenêtre se colore, le message arrive dedans ; une seconde version arrive trois semaines plus tard, la fenêtre est fermée.", "pourquoi": "sujet ciblages de Simon ; conviction claire, idée à retenir en une phrase, sans produit.", "source": "aucune (conviction).", "ressource": "aucune.", "valider": "", "text": "Un intentionniste, c'est quelqu'un qui est en train de chercher. Pas quelqu'un qui a cherché.\n\nUne personne qui compare des assurances habitation parce qu'elle déménage a un projet pour quelques semaines. Après, elle a signé. Chez quelqu'un d'autre, si on arrive trop tard.\n\nC'est pour ça que, sur un ciblage intentionniste, je regarde trois choses avant le volume :\n→ quel signal a été détecté ;\n→ quand il a été détecté ;\n→ en combien de temps le message peut partir.\n\nUn fichier de « personnes intéressées par l'assurance » sans date, ce n'est pas de l'intention. C'est un souvenir.\n\nDans vos ciblages, vous regardez la date du signal ?", "media": {"type": "video", "src": "anim/F2.mp4?v=6", "poster": "anim/F2.png?v=6"}, "download": "anim/F2.mp4?v=6"}, {"id": "S3", "date": "jeudi 26 novembre, 9 h", "title": "Les 3 familles de signaux d'intention", "format": "schéma fixe en trois colonnes (repris de la V5) — déclaratif, comportemental, moment de vie.", "pourquoi": "contenu pédagogique et enregistrable sur le ciblage, le cœur du sujet de Simon.", "source": "aucune.", "ressource": "aucune.", "valider": "", "text": "Tous les signaux d'intention ne se valent pas.\n\nQuand on prépare un ciblage, je distingue trois familles :\n\n→ le déclaratif : la personne le dit elle-même, dans un formulaire ou un questionnaire. C'est le plus explicite.\n→ le comportemental : elle le montre, par ses recherches ou ses comparaisons. C'est souvent le plus frais.\n→ le moment de vie : elle le vit. Un déménagement, une naissance, un nouveau véhicule. C'est celui qui ouvre le plus de besoins à la fois.\n\nLe meilleur ciblage croise souvent les trois. Et pour chacun, une question reste la même : depuis quand le sait-on ?\n\nLequel de ces signaux utilisez-vous aujourd'hui ?", "media": {"type": "image", "src": "visuels/F3.png?v=6"}, "download": "visuels/F3.png?v=6"}, {"id": "S4", "date": "jeudi 3 décembre, 9 h", "title": "Ventes attribuées ou ventes gagnées ?", "format": "schéma fixe (repris de la V5) — deux colonnes : « ventes attribuées à la campagne » et « ventes réellement gagnées grâce à elle », l'écart marqué « ce qui serait arrivé de toute façon ». Sans chiffres.", "pourquoi": "optimisation de l'usage de la donnée : la mesure qui dit vraiment ce que la donnée a rapporté.", "source": "aucune.", "ressource": "aucune.", "valider": "", "text": "La question que je pose sur chaque campagne : qu'est-ce qui ne se serait pas passé sans elle ?\n\nUne campagne peut afficher de très beaux résultats en ne recrutant presque personne. Il suffit qu'elle touche des clients qui seraient venus de toute façon.\n\nLes tableaux de bord attribuent tout au dernier message reçu. C'est confortable, mais ça ne dit pas ce que la campagne a vraiment rapporté.\n\nLa méthode est simple :\n→ mettre de côté 5 à 10 % de la cible, tirés au hasard ;\n→ ne pas les contacter ;\n→ comparer ensuite les deux groupes.\n\nL'écart, c'est le vrai effet. C'est moins flatteur. C'est la seule base solide pour décider du budget suivant.\n\nChez vous, on parle de ventes attribuées ou de ventes gagnées ?", "media": {"type": "image", "src": "visuels/J4.png?v=6"}, "download": "visuels/J4.png?v=6"}, {"id": "S5", "date": "jeudi 10 décembre, 9 h", "title": "Ressource : 5 questions à poser à un fournisseur de données", "format": "carrousel PDF 7 pages (repris de la V5) — couverture, cinq questions, page finale.", "pourquoi": "format le plus enregistré ; Simon donne une grille utile à tout acheteur de données, y compris face à son propre métier.", "source": "aucune.", "ressource": "la grille en PDF, envoyée par message à ceux qui la demandent.", "valider": "", "text": "Cinq questions à poser à n'importe quel fournisseur de données. Le nôtre compris.\n\n1. D'où viennent vos contacts, source par source ?\n2. Pouvez-vous me montrer la preuve du consentement d'un contact pris au hasard ?\n3. Combien de fois par mois un même contact est-il sollicité ?\n4. Où sont hébergées les données ?\n5. Comment mesurez-vous ce que la campagne a réellement rapporté ?\n\nSi l'une des réponses est floue, c'est un signal.\n\nJ'en ai fait une grille d'une page. Si elle vous sert, envoyez-moi un message.\n\nIl manque une question à cette liste ?", "media": {"type": "carousel", "pages": ["carrousels/pages/J5-01.png?v=6", "carrousels/pages/J5-02.png?v=6", "carrousels/pages/J5-03.png?v=6", "carrousels/pages/J5-04.png?v=6", "carrousels/pages/J5-05.png?v=6", "carrousels/pages/J5-06.png?v=6", "carrousels/pages/J5-07.png?v=6"]}, "download": "carrousels/J5.pdf?v=6"}]}, {"key": "L", "name": "Live Data Solutions", "role": "Page entreprise", "photo": "assets/logo_lds_sq.png?v=6", "short": "Page Live Data", "headline": "Page entreprise · solutions et produits", "posts": [{"id": "L1", "date": "jeudi 12 novembre, 11 h", "title": "Opérateur data : ce qu'on fait vraiment", "format": "schéma fixe en 3 étapes (repris de la V5) — Choisir qui contacter → Activer, quand et sur quel canal → Prouver ce que ça a rapporté.", "pourquoi": "post de présentation de la page : le positionnement d'opérateur data, avec les deux chiffres autorisés (38M+, depuis 2014).", "source": "chiffres Live Data Solutions (38M+ contacts opt-in, créée en 2014).", "ressource": "aucune.", "valider": "", "text": "« Vous vendez de la data ? » Non.\n\nLive Data Solutions est un opérateur data. Depuis 2014, notre métier tient en trois étapes :\n\n→ Choisir qui contacter : plus de 38 millions de contacts opt-in en France, en BtoC et en BtoB, ciblés par zone, profil, intention ou moment de vie.\n→ Activer, au bon moment et sur le bon canal : email, SMS et RCS, téléphone, courrier, display.\n→ Prouver ce que ça a rapporté : un bilan campagne par campagne, et magasin par magasin quand c'est utile.\n\nLa donnée n'est que la matière première. Ce qui compte, c'est ce qu'elle déclenche.\n\nUn projet de conquête ou de réactivation ? Parlons-en.", "media": {"type": "image", "src": "visuels/S2.png?v=6"}, "download": "visuels/S2.png?v=6"}, {"id": "L2", "date": "mercredi 18 novembre, 11 h", "title": "Le comptage : combien de personnes vous pouvez vraiment toucher", "format": "animation 12 s (reprise de la V5) — un entonnoir en cinq étages : habitants de la zone → profil recherché → réellement joignables → accord pour le canal → hors clients actuels.", "pourquoi": "présente la plateforme de comptage et la méthode de chiffrage, de façon transparente.", "source": "aucune (description de l'offre, contexte Live Data Solutions).", "ressource": "comptage de la zone d'un magasin, sur demande.", "valider": "", "text": "« Combien de personnes je peux toucher ? »\n\nC'est la première question qu'on nous pose. Notre réponse ressemble à un entonnoir :\n→ combien de personnes habitent la zone ;\n→ combien correspondent au profil recherché ;\n→ combien sont réellement joignables ;\n→ combien ont donné leur accord pour le canal choisi ;\n→ combien restent une fois vos clients actuels retirés.\n\nC'est la dernière ligne qui compte, pour le budget comme pour le bilan.\n\nNotre plateforme de comptage chiffre chaque étage en temps réel. Elle peut aussi être déployée en marque blanche pour les agences, formation incluse.\n\nVous voulez le comptage de votre zone ? Écrivez-nous.", "media": {"type": "video", "src": "anim/F4.mp4?v=6", "poster": "anim/F4.png?v=6"}, "download": "anim/F4.mp4?v=6"}, {"id": "L3", "date": "jeudi 26 novembre, 11 h (veille du Black Friday)", "title": "Instant Mail® : ×2 sur le taux d'ouverture", "format": "animation 12 s (reprise de la V5) — deux boîtes mail : envoi à heure fixe, noyé dans la pile ; Instant Mail®, arrivé au moment où la personne se connecte, en haut. Puis « ×2 ».", "pourquoi": "preuve produit publiée au moment où les boîtes mail débordent.", "source": "chiffres internes Live Data Solutions 2026, mesurés par rapport à un routage à heure fixe.", "ressource": "aucune.", "valider": "", "text": "Même email. Même cible. Deux fois plus d'ouvertures.\n\nLa seule différence, c'est le moment de l'envoi.\n\nUne campagne classique part à heure fixe : mardi 10 h, pour tout le monde. Instant Mail® envoie l'email au moment où la personne est connectée.\n\nRésultat mesuré sur nos campagnes : un taux d'ouverture multiplié par deux par rapport à un envoi à heure fixe.\n\nDemain, c'est le Black Friday. Les boîtes mail vont déborder. Arriver au bon moment vaudra plus qu'un bon objet.", "media": {"type": "video", "src": "anim/S4.mp4?v=6", "poster": "anim/S4.png?v=6"}, "download": "anim/S4.mp4?v=6"}, {"id": "L4", "date": "mercredi 2 décembre, 11 h", "title": "Le RCS est prêt : 84 % des smartphones compatibles", "format": "visuel fixe (nouveau, d'après celui de la V5) — deux chiffres face à face : « 84 % des smartphones compatibles RCS » et « 738 marques l'ont utilisé en 2025 », avec un SMS texte à côté d'un message RCS (image, boutons).", "pourquoi": "innovation canal, chiffres af2m récents ; présente Instant RCS avec le chiffre autorisé.", "source": "af2m, Baromètre du marketing SMS 2025, publié le 25/02/2026 — af2m.org/barometre-du-marketing-sms-2025/ ; chiffres internes Live Data Solutions 2026 (Instant RCS).", "ressource": "aucune.", "valider": "", "text": "84 % des smartphones en France peuvent recevoir du RCS. 52 millions d'appareils.\n\nEn 2025, 738 marques l'ont utilisé, 75 % de plus qu'en 2024. Le retail représente 18 % d'entre elles.\n\nLe RCS, c'est un SMS avec des images, des boutons et des carrousels. Pour une offre en magasin, on montre le produit, l'adresse et l'itinéraire dans le même message.\n\nAvec Instant RCS, le message part au moment où la personne est connectée : 75 % de taux d'ouverture sur nos campagnes.\n\nNotre conseil : tester sur une partie de votre cible SMS, avec la même offre, et comparer.\n\nVous avez déjà testé le RCS ?", "media": {"type": "image", "src": "visuels/N_L4.png?v=6"}, "download": "visuels/N_L4.png?v=6"}, {"id": "L5", "date": "mercredi 9 décembre, 11 h", "title": "Agences : nos 3 règles de partenariat", "format": "carrousel PDF 5 pages (repris de la V5).", "pourquoi": "les agences sont des prescripteurs ; le post présente les modèles de partenariat (marque blanche, non-sollicitation).", "source": "aucune (modèles de partenariat Live Data Solutions).", "ressource": "aucune.", "valider": "", "text": "Une agence ne devrait jamais avoir peur de présenter un partenaire data à son client.\n\nQuand on travaille avec une agence, on pose trois règles dès le premier jour :\n→ l'agence garde la relation client ;\n→ on peut opérer en marque blanche : son client ne voit qu'elle ;\n→ on s'engage par contrat à ne pas solliciter ses clients.\n\nMarque blanche, co-traitance ou apport d'affaires : le modèle s'adapte à l'agence, pas l'inverse.\n\nAgences : qu'est-ce qui vous retient de travailler avec un opérateur data ?", "media": {"type": "carousel", "pages": ["carrousels/pages/S3-01.png?v=6", "carrousels/pages/S3-02.png?v=6", "carrousels/pages/S3-03.png?v=6", "carrousels/pages/S3-04.png?v=6", "carrousels/pages/S3-05.png?v=6"]}, "download": "carrousels/S3.pdf?v=6"}]}]}</script>
+
+</template>
+<script type="application/json" id="data">{"people": [{"key": "J", "name": "Joanna Hede", "first": "Joanna", "role": "CEO", "photo": "assets/joanna.jpg?v=7", "headline": "CEO · Live Data Solutions", "topics": "Actualité data, CRM, RGPD, réglementation, innovations", "posts": [{"id": "J1", "date": "mardi 10 novembre, 8 h 30", "title": "Actu : Digital Omnibus, ce que les États ont changé", "format": "visuel fixe en deux colonnes — « Proposé par la Commission (19/11/2025) » / « Position des États (21/10/2026) », trois lignes : définition de la donnée personnelle, cookies, IA.", "pourquoi": "actualité réglementaire de la semaine, qui touche toutes les équipes data et CRM. Joanna la traduit en trois points lisibles, sans jargon.", "source": "Parlement européen, Legislative Train « Digital Omnibus », proposition COM(2025) 837 du 19/11/2025 — europarl.europa.eu/legislative-train/package-digital-package/file-digital-package ; Journal du Net, « Digital Omnibus : ce que change le mandat du Conseil de l'UE du 21 octobre 2026 », 29/10/2026 — journaldunet.com/cybersecurite/1557131-digital-omnibus-ce-que-change-le-mandat-du-conseil-du-21-octobre-2026/", "ressource": "aucune.", "valider": "validation juridique avant publication (texte en négociation, à revérifier la veille).", "valider_par": "Joanna", "text": "Le RGPD va changer. Mais pas comme on l'annonçait il y a un an.\n\nLe 19 novembre 2025, la Commission européenne a présenté le « Digital Omnibus ». Un seul texte pour simplifier le RGPD, la directive ePrivacy et le Data Act.\n\nLe 21 octobre, les États membres ont arrêté leur position. Trois points à retenir :\n\n→ La définition de la donnée personnelle ne bouge pas. La Commission voulait l'assouplir, les États ont refusé.\n→ Les cookies restent dans la directive ePrivacy. Le « refus en un clic » promis par la Commission disparaît du texte des États.\n→ L'IA, elle, gagne : l'intérêt légitime pourrait suffire pour entraîner un modèle sur des données personnelles, avec un test de mise en balance et un droit d'opposition.\n\nRien n'est adopté. Les négociations avec le Parlement européen commencent.\n\nMon avis : ceux qui attendaient une grande dérégulation vont être déçus. Ceux qui ont des données propres et des consentements tracés n'ont rien à craindre.\n\nVous suivez ce texte de près, ou vous attendez la version finale ?", "media": {"type": "image", "src": "visuels/N_J1.png?v=7"}, "download": "visuels/N_J1.png?v=7", "thumb": "visuels/N_J1.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}, {"id": "J2", "date": "mardi 17 novembre, 8 h 30", "title": "Actu : CNIL, 487 M€ d'amendes et le vrai chiffre", "format": "visuel fixe — grand chiffre « 486 839 500 € », puis « 83 sanctions » et « 67 en procédure simplifiée ».", "pourquoi": "actu chiffrée sourcée (le format qui fait le plus réagir chez Bensaid), avec un angle de dirigeante : le risque concerne toutes les entreprises, pas seulement les géants.", "source": "CNIL, « Sanctions et mesures correctrices : la CNIL présente le bilan 2025 », 09/02/2026 — cnil.fr/fr/bilan-sanctions-2025 ; CNIL, rapport annuel 2025, 18/05/2026 — cnil.fr/fr/rapport-annuel-2025", "ressource": "aucune.", "valider": "validation juridique avant publication.", "valider_par": "Joanna", "text": "486 839 500 €. C'est le montant des amendes prononcées par la CNIL en 2025.\n\nNeuf fois plus qu'en 2024. Sauf que ce chiffre est trompeur.\n\nL'essentiel vient de deux décisions sur les cookies, contre Google et Shein. Ce ne sont pas elles qui devraient vous inquiéter.\n\nLe chiffre qui compte, c'est celui-ci : sur 83 sanctions, 67 ont été prononcées en procédure simplifiée. Des entreprises de toutes tailles, tous secteurs.\n\nAutrement dit, la CNIL ne contrôle plus seulement les géants. Elle va plus vite, et elle va partout.\n\nTrois questions que je pose en comité de direction :\n→ Qui, chez nous, sait où sont toutes nos données clients ?\n→ Pouvons-nous prouver chaque consentement, avec la date et la source ?\n→ Qui est prévenu en premier si la CNIL appelle demain ?\n\nVous auriez les réponses, chez vous ?", "media": {"type": "image", "src": "visuels/N_J2.png?v=7"}, "download": "visuels/N_J2.png?v=7", "thumb": "visuels/N_J2.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}, {"id": "J3", "date": "mardi 24 novembre, 8 h 30", "title": "Actu : Black Friday, le prix barré est contrôlé", "format": "visuel fixe — une étiquette « 49 € » barrée à côté d'un prix réduit, avec la règle : « Prix de référence = le prix le plus bas des 30 derniers jours ». Prix fictifs, signalés comme tels.", "pourquoi": "actu de la semaine du Black Friday (27/11) ; Joanna parle de réglementation qui impacte directement les marques et de la confiance des clients.", "source": "sondage OpinionWay pour Shopfully, 1 020 personnes, 18–21/09/2026, relayé par e-marketing.fr (octobre 2026) — e-marketing.fr/marques-1296/veille-et-tribune-2251/achats-de-noel-comment-les-francais-preparent-leurs-achats-175674 ; DGCCRF, « Annonces de réduction de prix : ce que vous devez savoir », règle en vigueur, page consultée le 29/10/2026 — economie.gouv.fr/dgccrf/les-fiches-pratiques/annonces-de-reduction-de-prix-ce-que-vous-devez-savoir", "ressource": "aucune.", "valider": "validation juridique avant publication. La règle des 30 jours date de 2022 : c'est l'étude Shopfully qui fait l'actualité.", "valider_par": "Joanna", "text": "Vendredi, c'est le Black Friday. Et chaque prix barré sera regardé de près.\n\n27 % des Français se disent « chasseurs de bonnes affaires ». Pour eux, le Black Friday est le coup d'envoi des achats de Noël. Ils comparent, ils vérifient, et 37 % d'entre eux comptent utiliser l'IA pour trouver les meilleures offres.\n\nPendant ce temps, la règle n'a pas changé : une réduction annoncée doit partir du prix le plus bas pratiqué au cours des 30 derniers jours. Pas du prix de l'été. Pas d'un prix « conseillé ».\n\nEt le mot « soldes » reste interdit en dehors des périodes légales.\n\nCe qui me frappe : on a des clients qui vérifient chaque prix avec une IA, et des marques qui prennent encore le risque d'un prix de référence gonflé. Une fausse promo se voit plus vite qu'avant.\n\nUne bonne promo, c'est aussi une promo qu'on peut défendre.\n\nVous avez vérifié vos prix de référence avant vendredi ?", "media": {"type": "image", "src": "visuels/N_J3.png?v=7"}, "download": "visuels/N_J3.png?v=7", "thumb": "visuels/N_J3.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}, {"id": "J4", "date": "mardi 1er décembre, 8 h 30", "title": "Actu : démarchage téléphonique, ce qui a changé le 11 août", "format": "animation 12 s (reprise de la V5) — une frise avec le 11 août 2026 ; après la date, chaque appel s'arrête sur « Accord préalable ? » et seuls ceux qui portent « accord prouvé » passent.", "pourquoi": "réglementation qui change le quotidien des équipes commerciales et marketing ; Joanna en tire une conviction sur la collecte du consentement.", "source": "Service-Public.fr, « Démarchage téléphonique abusif, spam vocal ou par SMS : que faire ? », vérifié le 12/08/2026 — service-public.gouv.fr/particuliers/vosdroits/F33267", "ressource": "aucune.", "valider": "validation juridique avant publication.", "valider_par": "Joanna", "text": "Depuis le 11 août, appeler un particulier pour lui vendre quelque chose suppose son accord préalable.\n\nIl y a des exceptions, notamment quand un contrat est en cours. Mais pour la conquête, la règle a changé.\n\nCe que ça veut dire, concrètement :\n→ un numéro sans preuve de consentement ne sert plus à prospecter ;\n→ cet accord est valable un an au maximum ;\n→ sa preuve doit être conservée trois ans.\n\nEt le réflexe « on passe par l'email ou le SMS » ne règle rien : en BtoC, ces canaux demandent eux aussi un accord préalable, sauf pour ses propres clients et sous conditions.\n\nJe crois que c'est une bonne nouvelle pour ceux qui travaillent proprement. Le vrai chantier n'est plus le fichier. C'est le moment où on demande l'accord : sur le site, en magasin, au moment d'un devis.\n\nTrois mois après, où en êtes-vous ?", "media": {"type": "video", "src": "anim/FL1.mp4?v=7", "poster": "anim/FL1.png?v=7"}, "download": "anim/FL1.mp4?v=7", "thumb": "anim/FL1.png?v=7", "kind": "animation (vidéo MP4), à ajouter comme une vidéo"}, {"id": "J5", "date": "mardi 8 décembre, 8 h 30", "title": "Actu : réseaux sociaux et moins de 15 ans, ce qu'il reste de la loi", "format": "visuel fixe — frise en trois dates : 21 juillet (loi adoptée), 14 août (interdiction censurée par le Conseil constitutionnel), 24 août (loi promulguée sans elle).", "pourquoi": "sujet cité par Simon et Joanna (« interdiction réseaux sociaux ») ; Joanna l'analyse sous l'angle de la donnée et des marques, pas de la polémique.", "source": "Vie-publique.fr, « Loi du 24 août 2026 visant à protéger les mineurs des risques auxquels les expose l'utilisation des réseaux sociaux », 25/08/2026 — vie-publique.fr/loi/301799-proteger-les-mineurs-risques-des-reseaux-sociaux-loi-du-24-aout-2026 ; Conseil constitutionnel, décision n° 2026-911 DC du 14/08/2026.", "ressource": "aucune.", "valider": "validation juridique avant publication.", "valider_par": "Joanna", "text": "On a beaucoup lu que les réseaux sociaux seraient interdits aux moins de 15 ans en France. Ce n'est pas le cas.\n\nLe 21 juillet, le Parlement a adopté une loi qui prévoyait cette interdiction.\nLe 14 août, le Conseil constitutionnel l'a censurée : une interdiction générale porte une atteinte jugée disproportionnée à la liberté d'expression, et le texte ne garantissait pas assez le respect de la vie privée.\nLe 24 août, la loi a été promulguée sans elle. Il reste notamment l'interdiction du portable au lycée.\n\nPourquoi j'en parle ici ? Parce que la question de fond n'est pas tranchée : comment vérifier l'âge de quelqu'un sans collecter encore plus de données sur lui ?\n\nC'est la même tension que dans tous nos métiers. Plus on veut protéger, plus on a besoin de savoir qui est en face. Et plus il faut être irréprochable sur ce qu'on fait de cette information.\n\nLe sujet va revenir. Les marques qui s'adressent aux jeunes ont intérêt à s'y préparer dès maintenant.\n\nVérifier l'âge sans tout savoir de la personne : vous pensez que c'est possible ?", "media": {"type": "image", "src": "visuels/N_J5.png?v=7"}, "download": "visuels/N_J5.png?v=7", "thumb": "visuels/N_J5.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}]}, {"key": "P", "name": "Pierre Sadain", "first": "Pierre", "role": "Sales Manager", "photo": "assets/pierre.jpg?v=7", "headline": "Sales Manager · Live Data Solutions", "topics": "Vision locale, drive-to-store, retail", "posts": [{"id": "P1", "date": "jeudi 12 novembre, 8 h 30", "title": "Actu : Noël se joue encore en magasin", "format": "visuel fixe (repris de la V5) — grand chiffre « 8 sur 10 » et une mini-carte de trois zones de magasin.", "pourquoi": "actu chiffrée de saison, au cœur du sujet de Pierre : le magasin reste le centre du parcours, et chaque magasin a sa zone.", "source": "sondage OpinionWay pour Shopfully, 1 020 personnes, 18–21/09/2026, relayé par Comarketing-News (octobre 2026) — comarketing-news.fr/noel-2026-le-magasin-resiste-lia-sinstalle/", "ressource": "aucune.", "valider": "le retour terrain (« ce que je vois chez les enseignes ») doit correspondre à ce que Pierre constate.", "valider_par": "Pierre", "text": "82 % des Français qui préparent leurs achats de fêtes passeront par un magasin.\n\nSeuls 18 % achèteront uniquement en ligne. Et pour trouver des idées, 45 % disent qu'ils vont tout simplement se promener en magasin.\n\nOn annonce la fin du magasin tous les ans. Chaque année, à Noël, les chiffres disent l'inverse.\n\nCe que je vois chez les enseignes que je rencontre : le magasin n'a pas perdu ses clients, il a perdu le contact avec eux entre deux visites. Le client vient moins souvent, mais il vient avec une idée précise.\n\nL'enjeu n'est donc pas de faire venir « du monde ». C'est de faire venir les bonnes personnes, autour du bon magasin, au bon moment.\n\nPour vous, Noël 2026 se jouera en magasin ou en ligne ?", "media": {"type": "image", "src": "visuels/S1.png?v=7"}, "download": "visuels/S1.png?v=7", "thumb": "visuels/S1.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}, {"id": "P2", "date": "mercredi 18 novembre, 8 h 30", "title": "Un magasin sur cinq a fermé depuis 2019", "format": "visuel fixe — deux barres : « Parc de magasins : −20 % » et « Fréquentation : −13 % », et « jusqu'à −25 % de trafic sur les emplacements les moins attractifs ». Source Procos en pied.", "pourquoi": "analyse sectorielle chiffrée (format Thréard) ; Pierre pose une conviction forte sur le retail physique.", "source": "Procos, « What's next for l'évolution de l'activité du commerce spécialisé », conférence du 17/06/2026, newsletter de juillet 2026 — procos.org/images/procos/images_page_d_accueil/Newsletter/Juillet_2026/news_95_activite_commerce.pdf", "ressource": "aucune.", "valider": "", "valider_par": "", "text": "Un magasin sur cinq a fermé en France depuis 2019.\n\nC'est le chiffre présenté par Procos en juin : −20 % de magasins dans le commerce spécialisé entre 2019 et 2025. Et −13 % de fréquentation.\n\nLa moitié de ces fermetures vient de défaillances. L'autre moitié est voulue : les enseignes rationalisent leurs réseaux.\n\nCe qui m'intéresse, c'est où ça ferme. Les centres-villes et les petits centres commerciaux sont les plus touchés. Les retail parks et les meilleurs emplacements tiennent. Les emplacements les moins attractifs ont perdu près de 25 % de leur trafic.\n\nMa lecture : il n'y a pas « un » commerce physique en crise. Il y a des magasins qui ont une raison d'être visités, et d'autres qui comptent encore sur le passage.\n\nLe passage ne suffit plus. Chaque magasin doit aller chercher sa zone.\n\nDans votre réseau, quels magasins tiennent le mieux, et pourquoi ?", "media": {"type": "image", "src": "visuels/N_P2.png?v=7"}, "download": "visuels/N_P2.png?v=7", "thumb": "visuels/N_P2.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}, {"id": "P3", "date": "mercredi 25 novembre, 8 h 30", "title": "Un réseau, ce n'est pas un marché, c'est 300 marchés", "format": "visuel fixe — 11,6 % en grand, puis trois barres de vacance 2024 : centres commerciaux 16,1 %, pieds d'immeuble 10,9 %, zones commerciales 7,2 %. Source CNC en pied.", "pourquoi": "vision locale de Pierre : les écarts entre formats et territoires justifient un pilotage magasin par magasin.", "source": "Conseil national du commerce, rapport « La vacance commerciale en centre-ville », 30/06/2026 — entreprises.gouv.fr/files/files/Entites/CNC/cnc_rapport_gt_vacance_commerciale.pdf ; Banque des Territoires (Localtis), 03/07/2026 — banquedesterritoires.fr/vacance-commerciale-il-faut-travailler-sur-lhabitabilite-des-centres-villes-souligne-le-conseil", "ressource": "aucune.", "valider": "", "valider_par": "", "text": "11,6 %. C'est le taux de vacance commerciale moyen en France en 2025. Il était de 9,5 % en 2019.\n\nMais la moyenne cache tout. En 2024, selon le même rapport :\n→ 16,1 % dans les centres commerciaux ;\n→ 10,9 % en pied d'immeuble, dans les rues commerçantes ;\n→ 7,2 % dans les zones commerciales.\n\nDeux magasins de la même enseigne peuvent vivre dans deux mondes différents. Pas le même trafic, pas les mêmes clients, pas la même concurrence à 10 minutes.\n\nC'est pour ça que je ne crois pas aux plans d'animation nationaux déclinés à l'identique dans chaque point de vente. Un réseau de 300 magasins, ce n'est pas un marché. C'est 300 marchés locaux.\n\nLa bonne question n'est pas « combien on investit cette année ? », mais « où, et pour quel magasin ? ».\n\nChez vous, le budget local se décide au siège ou en magasin ?", "media": {"type": "image", "src": "visuels/N_P3.png?v=7"}, "download": "visuels/N_P3.png?v=7", "thumb": "visuels/N_P3.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}, {"id": "P4", "date": "mercredi 2 décembre, 8 h 30", "title": "5 choses que j'ai apprises en parlant avec des directeurs de magasin", "format": "visuel fixe — liste de cinq leçons numérotées, en grand.", "pourquoi": "format « liste de leçons » et retour terrain (Thréard) ; Pierre parle de ses rendez-vous, sans nommer personne et sans vendre.", "source": "aucune (retour terrain).", "ressource": "aucune.", "valider": "les cinq leçons doivent être les siennes ; à reformuler avec ses mots et ses exemples.", "valider_par": "Pierre", "text": "Ce que j'ai appris en parlant avec des directeurs de magasin. Cinq choses.\n\n1. Ils connaissent leur zone mieux que n'importe quel tableau de bord. Demandez-leur d'où viennent leurs clients : ils vous répondent rue par rue.\n\n2. Le premier frein n'est pas le budget. C'est le temps. Une action locale qui leur demande trois réunions ne se fera pas.\n\n3. Ils veulent un résultat par magasin. Un bilan national ne leur dit rien sur leur propre point de vente.\n\n4. Le samedi ne se prépare pas le vendredi. Ceux qui remplissent leur magasin travaillent leur zone dix jours avant.\n\n5. Ils se méfient des promesses. Ils font confiance à ce qu'ils voient en caisse.\n\nSi je devais n'en garder qu'une : partir du magasin, pas de la campagne.\n\nDirecteurs de magasin, qu'est-ce que j'ai oublié ?", "media": {"type": "image", "src": "visuels/N_P4.png?v=7"}, "download": "visuels/N_P4.png?v=7", "thumb": "visuels/N_P4.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}, {"id": "P5", "date": "mercredi 9 décembre, 8 h 30", "title": "Ressource : votre zone de chalandise en 6 questions", "format": "carrousel PDF 8 pages — couverture, six questions (une par page), page finale « Envoyez-moi un message, je vous envoie la grille ».", "pourquoi": "ressource gratuite (le lead magnet du modèle Thréard), utile à un directeur de magasin ou de réseau, sans produit Live Data.", "source": "aucune.", "ressource": "la grille « zone de chalandise en 6 questions », envoyée par message à ceux qui la demandent.", "valider": "", "valider_par": "", "text": "Votre magasin a une zone de chalandise. Mais la connaissez-vous vraiment ?\n\nSix questions que je pose avant de parler de n'importe quelle action locale :\n\n1. Jusqu'où vos clients viennent-ils, en minutes de trajet, pas en kilomètres ?\n2. Combien d'habitants vivent dans cette zone ?\n3. Quelle part de vos clients habite vraiment autour du magasin ?\n4. Où sont vos concurrents, à moins de 10 minutes ?\n5. Qui, dans la zone, ne vous connaît pas encore ?\n6. Comment saurez-vous qu'une action a fait venir du monde en magasin ?\n\nSi vous répondez à la sixième avant de lancer l'action, vous avez déjà une longueur d'avance.\n\nJ'ai mis ces questions dans une grille d'une page. Si elle vous est utile, envoyez-moi un message, je vous l'envoie.", "media": {"type": "carousel", "pages": ["carrousels/pages/N_P5-01.png?v=7", "carrousels/pages/N_P5-02.png?v=7", "carrousels/pages/N_P5-03.png?v=7", "carrousels/pages/N_P5-04.png?v=7", "carrousels/pages/N_P5-05.png?v=7", "carrousels/pages/N_P5-06.png?v=7", "carrousels/pages/N_P5-07.png?v=7", "carrousels/pages/N_P5-08.png?v=7"]}, "download": "carrousels/N_P5.pdf?v=7", "thumb": "carrousels/pages/N_P5-01.png?v=7", "kind": "carrousel (PDF de 8 pages), à ajouter comme un document"}]}, {"key": "S", "name": "Simon Vagnier", "first": "Simon", "role": "Directeur Business Unit", "photo": "assets/simon.jpg?v=7", "headline": "Directeur Business Unit · Live Data Solutions", "topics": "Data, ciblages, IA dans la data", "posts": [{"id": "S1", "date": "jeudi 12 novembre, 9 h", "title": "Actu : l'IA ne répare pas une base sale", "format": "schéma fixe (repris de la V5) — « base sale → IA → décisions fausses ».", "pourquoi": "sujet de Simon (IA dans la data) ; actu chiffrée sourcée, puis conviction et trois questions concrètes.", "source": "Adobe, rapport « IA et tendances digitales 2026 », 7 000 répondants, relayé par J'ai un pote dans la com, 04/03/2026 — jai-un-pote-dans-la.com/rapport-adobe-2026-ia-agentique-adoption-france/", "ressource": "aucune.", "valider": "", "valider_par": "", "text": "78 % des entreprises françaises citent l'intégration et la qualité des données comme le premier frein pour passer à l'échelle avec l'IA agentique.\n\nEt seules 36 % jugent leurs données suffisantes pour l'IA aujourd'hui.\n\nCe chiffre ne me surprend pas. On achète l'outil d'abord, on regarde la donnée ensuite.\n\nLe problème : l'IA ne répare pas une base sale. Un modèle qui apprend sur des emails périmés, des doublons et des consentements introuvables produit des décisions fausses. Plus vite, et avec plus d'assurance.\n\nAvant n'importe quel projet d'IA, je poserais trois questions :\n→ Quelle part de ma base est réellement joignable ?\n→ Pour quels canaux ai-je la preuve du consentement ?\n→ Quand ces données ont-elles été vérifiées pour la dernière fois ?\n\nSi les réponses sont floues, votre premier projet d'IA, c'est celui-là.\n\nVous avez commencé par l'outil ou par la donnée ?", "media": {"type": "image", "src": "visuels/J3.png?v=7"}, "download": "visuels/J3.png?v=7", "thumb": "visuels/J3.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}, {"id": "S2", "date": "jeudi 19 novembre, 9 h", "title": "Un intentionniste a une date de péremption", "format": "animation 12 s (reprise de la V5) — une frise : le signal d'intention s'allume, une fenêtre se colore, le message arrive dedans ; une seconde version arrive trois semaines plus tard, la fenêtre est fermée.", "pourquoi": "sujet ciblages de Simon ; conviction claire, idée à retenir en une phrase, sans produit.", "source": "aucune (conviction).", "ressource": "aucune.", "valider": "", "valider_par": "", "text": "Un intentionniste, c'est quelqu'un qui est en train de chercher. Pas quelqu'un qui a cherché.\n\nUne personne qui compare des assurances habitation parce qu'elle déménage a un projet pour quelques semaines. Après, elle a signé. Chez quelqu'un d'autre, si on arrive trop tard.\n\nC'est pour ça que, sur un ciblage intentionniste, je regarde trois choses avant le volume :\n→ quel signal a été détecté ;\n→ quand il a été détecté ;\n→ en combien de temps le message peut partir.\n\nUn fichier de « personnes intéressées par l'assurance » sans date, ce n'est pas de l'intention. C'est un souvenir.\n\nDans vos ciblages, vous regardez la date du signal ?", "media": {"type": "video", "src": "anim/F2.mp4?v=7", "poster": "anim/F2.png?v=7"}, "download": "anim/F2.mp4?v=7", "thumb": "anim/F2.png?v=7", "kind": "animation (vidéo MP4), à ajouter comme une vidéo"}, {"id": "S3", "date": "jeudi 26 novembre, 9 h", "title": "Les 3 familles de signaux d'intention", "format": "schéma fixe en trois colonnes (repris de la V5) — déclaratif, comportemental, moment de vie.", "pourquoi": "contenu pédagogique et enregistrable sur le ciblage, le cœur du sujet de Simon.", "source": "aucune.", "ressource": "aucune.", "valider": "", "valider_par": "", "text": "Tous les signaux d'intention ne se valent pas.\n\nQuand on prépare un ciblage, je distingue trois familles :\n\n→ le déclaratif : la personne le dit elle-même, dans un formulaire ou un questionnaire. C'est le plus explicite.\n→ le comportemental : elle le montre, par ses recherches ou ses comparaisons. C'est souvent le plus frais.\n→ le moment de vie : elle le vit. Un déménagement, une naissance, un nouveau véhicule. C'est celui qui ouvre le plus de besoins à la fois.\n\nLe meilleur ciblage croise souvent les trois. Et pour chacun, une question reste la même : depuis quand le sait-on ?\n\nLequel de ces signaux utilisez-vous aujourd'hui ?", "media": {"type": "image", "src": "visuels/F3.png?v=7"}, "download": "visuels/F3.png?v=7", "thumb": "visuels/F3.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}, {"id": "S4", "date": "jeudi 3 décembre, 9 h", "title": "Ventes attribuées ou ventes gagnées ?", "format": "schéma fixe (repris de la V5) — deux colonnes : « ventes attribuées à la campagne » et « ventes réellement gagnées grâce à elle », l'écart marqué « ce qui serait arrivé de toute façon ». Sans chiffres.", "pourquoi": "optimisation de l'usage de la donnée : la mesure qui dit vraiment ce que la donnée a rapporté.", "source": "aucune.", "ressource": "aucune.", "valider": "", "valider_par": "", "text": "La question que je pose sur chaque campagne : qu'est-ce qui ne se serait pas passé sans elle ?\n\nUne campagne peut afficher de très beaux résultats en ne recrutant presque personne. Il suffit qu'elle touche des clients qui seraient venus de toute façon.\n\nLes tableaux de bord attribuent tout au dernier message reçu. C'est confortable, mais ça ne dit pas ce que la campagne a vraiment rapporté.\n\nLa méthode est simple :\n→ mettre de côté 5 à 10 % de la cible, tirés au hasard ;\n→ ne pas les contacter ;\n→ comparer ensuite les deux groupes.\n\nL'écart, c'est le vrai effet. C'est moins flatteur. C'est la seule base solide pour décider du budget suivant.\n\nChez vous, on parle de ventes attribuées ou de ventes gagnées ?", "media": {"type": "image", "src": "visuels/J4.png?v=7"}, "download": "visuels/J4.png?v=7", "thumb": "visuels/J4.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}, {"id": "S5", "date": "jeudi 10 décembre, 9 h", "title": "Ressource : 5 questions à poser à un fournisseur de données", "format": "carrousel PDF 7 pages (repris de la V5) — couverture, cinq questions, page finale.", "pourquoi": "format le plus enregistré ; Simon donne une grille utile à tout acheteur de données, y compris face à son propre métier.", "source": "aucune.", "ressource": "la grille en PDF, envoyée par message à ceux qui la demandent.", "valider": "", "valider_par": "", "text": "Cinq questions à poser à n'importe quel fournisseur de données. Le nôtre compris.\n\n1. D'où viennent vos contacts, source par source ?\n2. Pouvez-vous me montrer la preuve du consentement d'un contact pris au hasard ?\n3. Combien de fois par mois un même contact est-il sollicité ?\n4. Où sont hébergées les données ?\n5. Comment mesurez-vous ce que la campagne a réellement rapporté ?\n\nSi l'une des réponses est floue, c'est un signal.\n\nJ'en ai fait une grille d'une page. Si elle vous sert, envoyez-moi un message.\n\nIl manque une question à cette liste ?", "media": {"type": "carousel", "pages": ["carrousels/pages/J5-01.png?v=7", "carrousels/pages/J5-02.png?v=7", "carrousels/pages/J5-03.png?v=7", "carrousels/pages/J5-04.png?v=7", "carrousels/pages/J5-05.png?v=7", "carrousels/pages/J5-06.png?v=7", "carrousels/pages/J5-07.png?v=7"]}, "download": "carrousels/J5.pdf?v=7", "thumb": "carrousels/pages/J5-01.png?v=7", "kind": "carrousel (PDF de 7 pages), à ajouter comme un document"}]}, {"key": "L", "name": "Live Data Solutions", "first": "Page Live Data", "role": "Page entreprise", "photo": "assets/logo_lds_sq.png?v=7", "headline": "Page entreprise · solutions et produits", "topics": "Solutions et produits", "posts": [{"id": "L1", "date": "jeudi 12 novembre, 11 h", "title": "Opérateur data : ce qu'on fait vraiment", "format": "schéma fixe en 3 étapes (repris de la V5) — Choisir qui contacter → Activer, quand et sur quel canal → Prouver ce que ça a rapporté.", "pourquoi": "post de présentation de la page : le positionnement d'opérateur data, avec les deux chiffres autorisés (38M+, depuis 2014).", "source": "chiffres Live Data Solutions (38M+ contacts opt-in, créée en 2014).", "ressource": "aucune.", "valider": "", "valider_par": "", "text": "« Vous vendez de la data ? » Non.\n\nLive Data Solutions est un opérateur data. Depuis 2014, notre métier tient en trois étapes :\n\n→ Choisir qui contacter : plus de 38 millions de contacts opt-in en France, en BtoC et en BtoB, ciblés par zone, profil, intention ou moment de vie.\n→ Activer, au bon moment et sur le bon canal : email, SMS et RCS, téléphone, courrier, display.\n→ Prouver ce que ça a rapporté : un bilan campagne par campagne, et magasin par magasin quand c'est utile.\n\nLa donnée n'est que la matière première. Ce qui compte, c'est ce qu'elle déclenche.\n\nUn projet de conquête ou de réactivation ? Parlons-en.", "media": {"type": "image", "src": "visuels/S2.png?v=7"}, "download": "visuels/S2.png?v=7", "thumb": "visuels/S2.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}, {"id": "L2", "date": "mercredi 18 novembre, 11 h", "title": "Le comptage : combien de personnes vous pouvez vraiment toucher", "format": "animation 12 s (reprise de la V5) — un entonnoir en cinq étages : habitants de la zone → profil recherché → réellement joignables → accord pour le canal → hors clients actuels.", "pourquoi": "présente la plateforme de comptage et la méthode de chiffrage, de façon transparente.", "source": "aucune (description de l'offre, contexte Live Data Solutions).", "ressource": "comptage de la zone d'un magasin, sur demande.", "valider": "", "valider_par": "", "text": "« Combien de personnes je peux toucher ? »\n\nC'est la première question qu'on nous pose. Notre réponse ressemble à un entonnoir :\n→ combien de personnes habitent la zone ;\n→ combien correspondent au profil recherché ;\n→ combien sont réellement joignables ;\n→ combien ont donné leur accord pour le canal choisi ;\n→ combien restent une fois vos clients actuels retirés.\n\nC'est la dernière ligne qui compte, pour le budget comme pour le bilan.\n\nNotre plateforme de comptage chiffre chaque étage en temps réel. Elle peut aussi être déployée en marque blanche pour les agences, formation incluse.\n\nVous voulez le comptage de votre zone ? Écrivez-nous.", "media": {"type": "video", "src": "anim/F4.mp4?v=7", "poster": "anim/F4.png?v=7"}, "download": "anim/F4.mp4?v=7", "thumb": "anim/F4.png?v=7", "kind": "animation (vidéo MP4), à ajouter comme une vidéo"}, {"id": "L3", "date": "jeudi 26 novembre, 11 h (veille du Black Friday)", "title": "Instant Mail® : ×2 sur le taux d'ouverture", "format": "animation 12 s (reprise de la V5) — deux boîtes mail : envoi à heure fixe, noyé dans la pile ; Instant Mail®, arrivé au moment où la personne se connecte, en haut. Puis « ×2 ».", "pourquoi": "preuve produit publiée au moment où les boîtes mail débordent.", "source": "chiffres internes Live Data Solutions 2026, mesurés par rapport à un routage à heure fixe.", "ressource": "aucune.", "valider": "", "valider_par": "", "text": "Même email. Même cible. Deux fois plus d'ouvertures.\n\nLa seule différence, c'est le moment de l'envoi.\n\nUne campagne classique part à heure fixe : mardi 10 h, pour tout le monde. Instant Mail® envoie l'email au moment où la personne est connectée.\n\nRésultat mesuré sur nos campagnes : un taux d'ouverture multiplié par deux par rapport à un envoi à heure fixe.\n\nDemain, c'est le Black Friday. Les boîtes mail vont déborder. Arriver au bon moment vaudra plus qu'un bon objet.", "media": {"type": "video", "src": "anim/S4.mp4?v=7", "poster": "anim/S4.png?v=7"}, "download": "anim/S4.mp4?v=7", "thumb": "anim/S4.png?v=7", "kind": "animation (vidéo MP4), à ajouter comme une vidéo"}, {"id": "L4", "date": "mercredi 2 décembre, 11 h", "title": "Le RCS est prêt : 84 % des smartphones compatibles", "format": "visuel fixe (nouveau, d'après celui de la V5) — deux chiffres face à face : « 84 % des smartphones compatibles RCS » et « 738 marques l'ont utilisé en 2025 », avec un SMS texte à côté d'un message RCS (image, boutons).", "pourquoi": "innovation canal, chiffres af2m récents ; présente Instant RCS avec le chiffre autorisé.", "source": "af2m, Baromètre du marketing SMS 2025, publié le 25/02/2026 — af2m.org/barometre-du-marketing-sms-2025/ ; chiffres internes Live Data Solutions 2026 (Instant RCS).", "ressource": "aucune.", "valider": "", "valider_par": "", "text": "84 % des smartphones en France peuvent recevoir du RCS. 52 millions d'appareils.\n\nEn 2025, 738 marques l'ont utilisé, 75 % de plus qu'en 2024. Le retail représente 18 % d'entre elles.\n\nLe RCS, c'est un SMS avec des images, des boutons et des carrousels. Pour une offre en magasin, on montre le produit, l'adresse et l'itinéraire dans le même message.\n\nAvec Instant RCS, le message part au moment où la personne est connectée : 75 % de taux d'ouverture sur nos campagnes.\n\nNotre conseil : tester sur une partie de votre cible SMS, avec la même offre, et comparer.\n\nVous avez déjà testé le RCS ?", "media": {"type": "image", "src": "visuels/N_L4.png?v=7"}, "download": "visuels/N_L4.png?v=7", "thumb": "visuels/N_L4.png?v=7", "kind": "image (PNG), à ajouter comme une photo"}, {"id": "L5", "date": "mercredi 9 décembre, 11 h", "title": "Agences : nos 3 règles de partenariat", "format": "carrousel PDF 5 pages (repris de la V5).", "pourquoi": "les agences sont des prescripteurs ; le post présente les modèles de partenariat (marque blanche, non-sollicitation).", "source": "aucune (modèles de partenariat Live Data Solutions).", "ressource": "aucune.", "valider": "", "valider_par": "", "text": "Une agence ne devrait jamais avoir peur de présenter un partenaire data à son client.\n\nQuand on travaille avec une agence, on pose trois règles dès le premier jour :\n→ l'agence garde la relation client ;\n→ on peut opérer en marque blanche : son client ne voit qu'elle ;\n→ on s'engage par contrat à ne pas solliciter ses clients.\n\nMarque blanche, co-traitance ou apport d'affaires : le modèle s'adapte à l'agence, pas l'inverse.\n\nAgences : qu'est-ce qui vous retient de travailler avec un opérateur data ?", "media": {"type": "carousel", "pages": ["carrousels/pages/S3-01.png?v=7", "carrousels/pages/S3-02.png?v=7", "carrousels/pages/S3-03.png?v=7", "carrousels/pages/S3-04.png?v=7", "carrousels/pages/S3-05.png?v=7"]}, "download": "carrousels/S3.pdf?v=7", "thumb": "carrousels/pages/S3-01.png?v=7", "kind": "carrousel (PDF de 5 pages), à ajouter comme un document"}]}], "weeks": [{"w": "S46", "span": "9 → 13 nov.", "start": "2026-11-09", "ids": ["J1", "P1", "S1", "L1"]}, {"w": "S47", "span": "16 → 20 nov.", "start": "2026-11-16", "ids": ["J2", "P2", "S2", "L2"]}, {"w": "S48", "span": "23 → 27 nov.", "start": "2026-11-23", "ids": ["J3", "P3", "S3", "L3"]}, {"w": "S49", "span": "30 nov. → 4 déc.", "start": "2026-11-30", "ids": ["J4", "P4", "S4", "L4"]}, {"w": "S50", "span": "7 → 11 déc.", "start": "2026-12-07", "ids": ["J5", "P5", "S5", "L5"]}]}</script>
 <script>
 const DATA = JSON.parse(document.getElementById('data').textContent);
 const $ = (s, r=document) => r.querySelector(s);
-const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const linkify = s => esc(s).replace(/\b((?:[a-z0-9-]+\.)+(?:com|fr)(?:\/[^\s—]*)?)/gi, m => {
   const u = m.replace(/[.,;)]+$/, ''); const rest = m.slice(u.length);
   return `<a href="https://${u}" target="_blank" rel="noopener">${u}</a>${rest}`; });
-const POSTS = {};
 const isNone = s => !s || /^aucune/i.test(s);
+const POSTS = {}, PER = {};
+DATA.people.forEach(per => { PER[per.key] = per; per.posts.forEach((p, i) => { p.k = per.key; p.n = i + 1; POSTS[p.id] = p; }); });
+const shortDate = d => d.split(' (')[0];
+const status = p => p.valider ? (/juridique/i.test(p.valider) ? 'À valider juridiquement' : 'À valider par ' + p.valider_par) : '';
+const typeLabel = p => p.media.type === 'video' ? 'Animation' : p.media.type === 'carousel' ? `Carrousel ${p.media.pages.length} p.` : 'Image';
+const perLabel = per => per.key === 'L' ? 'Page Live Data' : per.name;
+const BASE = 'Programme LinkedIn Live Data — pilote';
+
+function pcard(p, showWho){
+  const per = PER[p.k], st = status(p);
+  return `<a class="pc" href="#${p.id}">
+   <span class="th"><img src="${p.thumb}" alt="" loading="lazy"><span class="ty">${typeLabel(p)}</span></span>
+   <span class="pb">${showWho ? `<span class="pw"><img src="${per.photo}" alt="">${esc(per.first)}</span>` : ''}
+    <span class="pm"><b>${p.id}</b> · ${esc(shortDate(p.date)).replace(/(\d+ h(?: \d+)?)$/, '<span style="white-space:nowrap">$1</span>')}</span>
+    <span class="pt">${esc(p.title)}</span>
+    ${st ? `<span class="st">${st}</span>` : ''}
+    <span class="op">Ouvrir le post ›</span></span></a>`;
+}
 
 function media(p){
   const m = p.media;
-  if (m.type === 'image') return `<div class="media"><img src="${m.src}" alt="Visuel ${p.id}" loading="lazy" onerror="this.parentNode.classList.add('err')"><div class="missing">Visuel ${p.id} introuvable</div></div>`;
-  if (m.type === 'video') return `<div class="media"><video src="${m.src}" poster="${m.poster}" autoplay muted loop playsinline preload="metadata" onerror="this.parentNode.classList.add('err')"></video><div class="missing">Animation ${p.id} en cours de production</div></div>`;
+  if (m.type === 'image') return `<div class="media"><img src="${m.src}" alt="Visuel ${p.id}" onerror="this.parentNode.classList.add('err')"><div class="missing">Visuel ${p.id} introuvable</div></div>`;
+  if (m.type === 'video') return `<div class="media"><video src="${m.src}" poster="${m.poster}" autoplay muted loop playsinline preload="auto" onerror="this.parentNode.classList.add('err')"></video><div class="missing">Animation ${p.id} introuvable</div></div>`;
   const n = m.pages.length;
-  return `<div class="media caro" data-i="0" data-n="${n}"><div class="track">${m.pages.map((s,i)=>`<img src="${s}" alt="Page ${i+1} sur ${n}" ${i?'loading="lazy"':''}>`).join('')}</div>
+  return `<div class="media caro" data-i="0" data-n="${n}"><div class="track">${m.pages.map((s,i)=>`<img src="${s}" alt="Page ${i+1} sur ${n}">`).join('')}</div>
     <span class="count">1 / ${n}</span>
-    <button class="arr l" aria-label="Page précédente" disabled>‹</button><button class="arr r" aria-label="Page suivante">›</button></div>`;
+    <button class="arr l" type="button" aria-label="Page précédente" disabled>‹</button><button class="arr r" type="button" aria-label="Page suivante">›</button></div>`;
 }
 
-function card(per, p){
-  POSTS[p.id] = p;
-  const res = isNone(p.ressource) ? '' : `<dt>Ressource proposée</dt><dd class="res">${esc(p.ressource)}</dd>`;
-  const val = p.valider ? `<dt>À valider</dt><dd class="val">${esc(p.valider)}</dd>` : '';
-  const dl = p.download.split('/').pop();
-  return `<article class="item" id="post-${p.id}">
-   <div class="card">
+function currentWeek(){
+  const now = new Date(); const ws = DATA.weeks;
+  for (const w of ws) { const s = new Date(w.start + 'T00:00:00'); const e = new Date(s); e.setDate(e.getDate() + 7);
+    if (now >= s && now < e) return {w, state: 'now'}; }
+  if (now < new Date(ws[0].start + 'T00:00:00')) return {w: ws[0], state: 'before'};
+  return {w: ws[ws.length - 1], state: 'after'};
+}
+
+// ---- vues
+function homeView(){
+  const wk = currentWeek();
+  const label = wk.state === 'now' ? 'Cette semaine' : wk.state === 'before' ? 'Première semaine de publication' : 'Dernière semaine du programme';
+  return `<div class="goal"><h1 tabindex="-1">Programme LinkedIn Live Data — pilote</h1>
+   <p>Objectif : personal branding de Joanna, Pierre et Simon, sur l'expertise de chacun, pour générer notoriété et leads. Leurs posts ne vendent pas les offres Live Data ; la page Live Data Solutions, elle, parle de nos solutions et de nos produits.</p></div>
+  <div class="blk"><div class="wkhead"><h2>${label}<span class="tag">${wk.w.w}</span></h2><span class="lead" style="margin:0">${esc(wk.w.span)}</span></div>
+   <p class="lead">Le post de chacun, prêt à copier et à télécharger.</p>
+   <div class="grid4">${wk.w.ids.map(id => pcard(POSTS[id], true)).join('')}</div>
+   <a class="more-l" href="#calendrier">Tout le calendrier ›</a></div>
+  <div class="blk"><h2>Tous les posts, par auteur</h2><p class="lead">Cinq posts chacun, dans l'ordre de publication.</p>
+   <div class="who4">${DATA.people.map(per => `<a class="au" href="#${per.key}"><img src="${per.photo}" alt=""><span class="ad"><b>${esc(perLabel(per))}</b><span>${esc(per.topics)}</span></span><em>5 posts ›</em></a>`).join('')}</div>
+   <div class="quick"><a class="qk" href="#mode-emploi"><span>Mode d'emploi<small>Publier un post en 6 étapes, organisation, temps par semaine</small></span></a><a class="qk" href="#calendrier"><span>Calendrier<small>20 posts du 10 novembre au 10 décembre</small></span></a></div></div>`;
+}
+
+function authorView(per){
+  const note = per.key === 'L' ? 'Page entreprise : solutions et produits.' : 'Personal branding : ces posts ne vendent pas les offres Live Data.';
+  return `<div class="ah"><img src="${per.photo}" alt=""><div><h1 class="v" tabindex="-1">${esc(per.key === 'L' ? 'Page Live Data Solutions' : per.name)}</h1><p><b>${esc(per.role)}</b> · ${esc(per.topics)}</p><p>${note} Cinq posts, dans l'ordre de publication.</p></div></div>
+   <div class="grid5">${per.posts.map(p => pcard(p, false)).join('')}</div>`;
+}
+
+function postView(p){
+  const per = PER[p.k], prev = per.posts[p.n - 2], next = per.posts[p.n];
+  const dl = p.download.split('/').pop().split('?')[0];
+  const st = status(p);
+  const copyBtn = `<button class="btn pri copy" type="button" data-id="${p.id}">Copier le texte</button>`;
+  const dlBtn = `<a class="btn dl" href="${p.download}" download="${dl}">Télécharger le visuel</a>`;
+  return `<nav class="crumb" aria-label="Fil d'Ariane"><a href="#${per.key}">‹ Tous les posts ${per.key === 'L' ? 'de la page Live Data' : 'de ' + esc(per.first)}</a><span>Post ${p.n} sur 5</span></nav>
+  <div class="pv">
+   <div class="pvl"><article class="card" id="post-${p.id}">
     <div class="ch"><img src="${per.photo}" alt=""><div class="who"><b>${esc(per.name)}</b><span class="hl">${esc(per.headline)}</span><span class="dt"><em>Prévu</em> · ${esc(p.date)}</span></div><span class="pid">${p.id}</span></div>
-    <div class="txt clamp"><span class="body">${esc(p.text)}</span><button class="more" type="button">… voir plus</button></div>
+    <div class="txt"><span class="body">${esc(p.text)}</span></div>
     ${media(p)}
     <div class="bar" aria-hidden="true"><span>J'aime</span><span>Commenter</span><span>Republier</span><span>Envoyer</span></div>
+   </article></div>
+   <div class="pvr">
+    <div class="ph"><p class="pm"><b>${p.id}</b> · ${esc(p.date)}</p><h1 class="v" tabindex="-1">${esc(p.title)}</h1>${st ? `<span class="st">${st}</span>` : ''}</div>
+    <div class="acts">${copyBtn}${dlBtn}
+     <p class="kind">Visuel : ${esc(p.kind)}</p>
+     <button class="btn lk link" type="button" data-id="${p.id}">Copier le lien du post</button></div>
+    ${p.valider ? `<div class="val"><b>À valider par ${esc(p.valider_par)}</b>${esc(p.valider)}</div>` : ''}
+    ${isNone(p.ressource) ? '' : `<div class="res"><b>Ressource proposée</b>${esc(p.ressource)}</div>`}
+    <div class="info">
+     <details><summary>Source — 1er commentaire</summary><div class="dd">${isNone(p.source) ? 'Aucune' : linkify(p.source) + `<br><button class="btn sm copysrc" type="button" data-id="${p.id}">Copier la source</button>`}</div></details>
+     <details><summary>Pourquoi ce post</summary><div class="dd">${esc(p.pourquoi)}</div></details>
+    </div>
+    <nav class="pn" aria-label="Posts suivant et précédent">${prev ? `<a href="#${prev.id}"><b>‹ ${prev.id}</b>${esc(prev.title)}</a>` : '<span></span>'}${next ? `<a class="nx" href="#${next.id}"><b>${next.id} ›</b>${esc(next.title)}</a>` : `<a class="nx" href="#${per.key}"><b>Sommaire ›</b>Les 5 posts</a>`}</nav>
    </div>
-   <div class="note"><dl>
-    <dt>Pourquoi ce post</dt><dd>${esc(p.pourquoi)}</dd>
-    <dt>Source (1er commentaire)</dt><dd>${isNone(p.source) ? 'Aucune' : linkify(p.source)}</dd>
-    ${res}${val}</dl>
-    <div class="acts"><button class="btn pri copy" type="button" data-id="${p.id}">Copier le texte</button>
-    <a class="btn" href="${p.download}" download="${dl.split('?')[0]}">Télécharger le visuel</a></div>
-   </div></article>`;
+  </div>
+  <div class="mbar">${copyBtn}${dlBtn.replace('Télécharger le visuel', 'Télécharger')}</div>`;
 }
 
-DATA.people.forEach(per => { $('#panel-'+per.key+' .feed').innerHTML = per.posts.map(p => card(per, p)).join(''); });
+function calView(){
+  const t = document.getElementById('tpl-cal').content.cloneNode(true);
+  const wk = currentWeek(); const tr = $(`tr[data-w="${wk.w.w}"]`, t);
+  if (tr && wk.state !== 'after') { tr.classList.add('cur'); $('.now', tr).textContent = wk.state === 'now' ? 'cette semaine' : 'première semaine'; }
+  return t;
+}
 
-// voir plus
+// ---- routeur : #accueil, #J … #L, #J1 … #L5 (ou #post-J1), #calendrier, #mode-emploi (#organisation, #like-rdv, #publier)
+const main = $('#main');
+// barre basse mobile (Copier / Télécharger) : n'apparaît que quand les boutons du haut sont sortis de l'écran
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => document.body.classList.toggle('mbar-on', !e.isIntersecting && e.boundingClientRect.top < 0))) : null;
+function route(){
+  const h = decodeURIComponent(location.hash.slice(1));
+  const key = h.replace(/^post-/i, '').toUpperCase();
+  let cur, title, anchor = null;
+  if (POSTS[key]) { const p = POSTS[key]; main.innerHTML = postView(p); cur = p.k; title = `${p.id} · ${p.title}`; }
+  else if (PER[key]) { main.innerHTML = authorView(PER[key]); cur = key; title = PER[key].first; }
+  else if (h === 'calendrier') { main.replaceChildren(calView()); cur = 'calendrier'; title = 'Calendrier'; }
+  else if (['mode-emploi', 'organisation', 'like-rdv', 'publier'].includes(h)) {
+    if (!$('#publier', main)) main.replaceChildren(document.getElementById('tpl-mode').content.cloneNode(true));
+    cur = 'mode-emploi'; title = "Mode d'emploi"; anchor = h === 'mode-emploi' ? null : h; }
+  else { main.innerHTML = homeView(); cur = 'accueil'; title = ''; }
+  document.title = title ? `${title} — ${BASE}` : BASE;
+  document.body.classList.toggle('haspost', !!POSTS[key]);
+  document.body.classList.remove('mbar-on'); if (io) io.disconnect();
+  const acts = $('.acts', main); if (acts && io) io.observe(acts);
+  $$('.nv').forEach(a => a.dataset.r === cur ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+  if (anchor) { const el = document.getElementById(anchor); if (el) el.scrollIntoView({block: 'start'}); }
+  else window.scrollTo(0, 0);
+  const h1 = $('h1', main); if (h1 && route.done) h1.focus({preventScroll: true});
+  route.done = true;
+  $$('.caro', main).forEach(swipe);
+  $$('video', main).forEach(v => { v.muted = true; const pr = v.play(); if (pr) pr.catch(() => {}); });
+}
+window.addEventListener('hashchange', route);
+
+// ---- interactions
 document.addEventListener('click', e => {
-  const t = e.target;
-  if (t.matches('.more')) { t.parentNode.classList.remove('clamp'); return; }
-  if (t.closest('.txt.clamp')) { t.closest('.txt').classList.remove('clamp'); return; }
-  if (t.matches('.arr')) {
-    const c = t.closest('.caro'); let i = +c.dataset.i + (t.classList.contains('r') ? 1 : -1);
-    go(c, i); return; }
-  if (t.matches('.copy')) { copy(POSTS[t.dataset.id].text, t); return; }
-  const cp = t.closest('.calpost');
-  if (cp) { const id = cp.dataset.goto; select(cp.dataset.k); const el = document.getElementById('post-'+id); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  const t = e.target.closest('button'); if (!t) return;
+  if (t.matches('.arr')) { const c = t.closest('.caro'); go(c, +c.dataset.i + (t.classList.contains('r') ? 1 : -1)); return; }
+  if (t.matches('.copy')) { copy(POSTS[t.dataset.id].text, t, 'Texte copié', 'Texte copié : collez-le dans LinkedIn'); return; }
+  if (t.matches('.copysrc')) { copy(POSTS[t.dataset.id].source, t, 'Source copiée', 'Source copiée : à coller en 1er commentaire'); return; }
+  if (t.matches('.link')) { copy(location.href.split('#')[0] + '#' + t.dataset.id, t, 'Lien copié', 'Lien du post copié'); return; }
+  if (t.matches('.totop')) { window.scrollTo({top: 0, behavior: 'smooth'}); }
 });
 function go(c, i){
   const n = +c.dataset.n; i = Math.max(0, Math.min(n-1, i)); c.dataset.i = i;
@@ -265,16 +476,14 @@ function go(c, i){
   $('.count', c).textContent = `${i+1} / ${n}`;
   $('.arr.l', c).disabled = i === 0; $('.arr.r', c).disabled = i === n-1;
 }
-// balayage tactile sur les carrousels
-document.querySelectorAll('.caro').forEach(c => {
+function swipe(c){
   let x0 = null;
   c.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive:true});
   c.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(c, +c.dataset.i + (dx < 0 ? 1 : -1)); x0 = null; });
-});
-
+}
 let toastT;
-function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('on'), 1800); }
-async function copy(text, btn){
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('on'), 2000); }
+async function copy(text, btn, done, msg){
   let ok = false;
   try { await navigator.clipboard.writeText(text); ok = true; }
   catch (e) {
@@ -284,21 +493,12 @@ async function copy(text, btn){
     ta.remove();
   }
   window.__lastCopied = ok ? text : null;
-  if (ok) { btn.textContent = 'Texte copié'; btn.classList.add('ok'); toast('Texte copié dans le presse-papiers');
-    setTimeout(()=>{ btn.textContent = 'Copier le texte'; btn.classList.remove('ok'); }, 1800); }
+  if (ok) { const old = btn.textContent; btn.textContent = done; btn.classList.add('ok'); toast(msg);
+    setTimeout(()=>{ btn.textContent = old; btn.classList.remove('ok'); }, 1800); }
   else toast('Copie impossible : sélectionnez le texte à la main');
 }
-
-function select(k){
-  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.k === k ? 'true' : 'false'));
-  document.querySelectorAll('.panel').forEach(p => p.hidden = p.id !== 'panel-'+k);
-  history.replaceState(null, '', '#'+k);
-}
-document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => select(b.dataset.k)));
-document.querySelector('nav.tabs').addEventListener('keydown', e => {
-  const ks = DATA.people.map(p => p.key); const n = ks.length; const cur = ks.indexOf(document.querySelector('.tab[aria-selected=true]').dataset.k);
-  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { const k = ks[(cur + (e.key === 'ArrowRight' ? 1 : n - 1)) % n]; select(k); $('#tab-'+k).focus(); }
-});
-const h = location.hash.slice(1).toUpperCase(); if (DATA.people.some(p => p.key === h)) select(h);
+const totop = $('.totop');
+window.addEventListener('scroll', () => totop.classList.toggle('on', scrollY > 700), {passive:true});
+route();
 </script>
 </body></html>
